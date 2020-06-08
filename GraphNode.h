@@ -2,6 +2,7 @@
 #include <vector>
 #include <thread>
 #include <chrono>
+#include <sstream>
 #include "Logger.h"
 #include "ConfigurationParameters.h"
 
@@ -23,9 +24,9 @@ public:
 
 	void traverseNode() 
 	{
-		std::string ss = "LOGGER: Traversed node " + std::to_string(key);// + " by thread with id: " + std::to_string(std::this_thread::get_id()) + std::endl;
-		Logger::getInstance()->logMessage(ss);
-		std::cout << "Traversed node " << std::to_string(key) << " by thread with id: " << std::this_thread::get_id() << std::endl;
+		std::ostringstream ss;
+		ss << "INFO: Traversed node " << key << " by thread with id: " << std::this_thread::get_id();
+		Logger::get_instance()->log_message(ss.str());
 		std::this_thread::sleep_for(ConfigurationParameters::node_traverse_time);
 	}
 };

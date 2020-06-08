@@ -11,12 +11,12 @@
 class GraphGenerator
 {
 public:
-	static GraphGenerator& getInstance();
+	static GraphGenerator& get_instance();
 
-	GraphNode* generateGraph(const GraphType type, int nodes);
+	GraphNode* generate_graph(const GraphType type, int nodes);
 
-	GraphNode* createCppGraphFromPyGraph(CPyObject py_graph);
-	GraphNode* createCppGraphFromNodesAndEdges(const std::vector<int>& nodes, const std::vector<std::pair<int, int>>&);
+	GraphNode* create_cpp_graph_from_py_graph(CPyObject py_graph);
+	GraphNode* create_cpp_graph_from_nodes_and_edges(const std::vector<int>& nodes, const std::vector<std::pair<int, int>>&);
 	
 	virtual ~GraphGenerator() {}
 private:

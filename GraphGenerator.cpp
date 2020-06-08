@@ -19,18 +19,18 @@ GraphGenerator::GraphGenerator()
 
 	if (!pModule)
 	{
-		//todo print error to log
-		//exit(1);
+		Logger::get_instance()->log_message("Could not find python function!");
+		exit(1);
 	}
 }
 
-GraphGenerator& GraphGenerator::getInstance()
+GraphGenerator& GraphGenerator::get_instance()
 {
 	static GraphGenerator instance;
 	return instance;
 }
 
-GraphNode* GraphGenerator::generateGraph(const GraphType type, int nodes)
+GraphNode* GraphGenerator::generate_graph(const GraphType type, int nodes)
 {
 	string py_meth_name = ConfigurationParameters::py_method_names.at(type);
 
@@ -38,23 +38,23 @@ GraphNode* GraphGenerator::generateGraph(const GraphType type, int nodes)
 	if (pFunc && PyCallable_Check(pFunc))
 	{
 		CPyObject py_graph = PyObject_CallObject(pFunc, NULL);
-		return createCppGraphFromPyGraph(py_graph);
+		return create_cpp_graph_from_py_graph(py_graph);
 	}
 	else 
 	{
-		//todo print error
+		Logger::get_instance()->log_message("Could not find python function!");
 		exit(1);
 	}
 
 	return new GraphNode(1);
 }
 
-GraphNode* GraphGenerator::createCppGraphFromPyGraph(CPyObject py_graph)
+GraphNode* GraphGenerator::create_cpp_graph_from_py_graph(CPyObject py_graph)
 {
 	CPyObject nodesPyList = PyTuple_GetItem(py_graph, 0);
 	vector<int> nodes_int;
 
-	Py_ssize_t nodes_list_len = PyList_GET_SIZE(nodesPyList.getObject());
+	ssize_t nodes_list_len = (ssize_t)PyList_GET_SIZE(nodesPyList.getObject());
 	for (size_t i = 0; i < nodes_list_len; i++)
 	{
 		CPyObject elem = PyList_GetItem(nodesPyList, i);
@@ -64,7 +64,7 @@ GraphNode* GraphGenerator::createCppGraphFromPyGraph(CPyObject py_graph)
 	CPyObject edgesPyList = PyTuple_GetItem(py_graph, 1);
 	vector<pair<int, int>> edges_int;
 
-	ssize_t edges_list_len =(ssize_t) PyList_GET_SIZE(edgesPyList.getObject());
+	ssize_t edges_list_len = (ssize_t)PyList_GET_SIZE(edgesPyList.getObject());
 	for (ssize_t i = 0; i < edges_list_len; i++)
 	{
 		CPyObject elem = PyList_GetItem(edgesPyList, i);
@@ -76,10 +76,10 @@ GraphNode* GraphGenerator::createCppGraphFromPyGraph(CPyObject py_graph)
 		edges_int.push_back(pair<int, int>(val1_int, val2_int));
 	}
 
-	return createCppGraphFromNodesAndEdges(nodes_int, edges_int);
+	return create_cpp_graph_from_nodes_and_edges(nodes_int, edges_int);
 }
 
-GraphNode* GraphGenerator::createCppGraphFromNodesAndEdges(const vector<int>& node_keys, const vector<std::pair<int, int>>& edges)
+GraphNode* GraphGenerator::create_cpp_graph_from_nodes_and_edges(const vector<int>& node_keys, const vector<std::pair<int, int>>& edges)
 {
 	vector<GraphNode*> nodes;
 	for(auto&& key : node_keys)

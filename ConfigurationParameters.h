@@ -15,6 +15,8 @@ public:
 	inline static const int wait_time = 100;
 	inline static const std::chrono::microseconds cond_var_wait_time{ wait_time };
 
+	inline static const std::string log_file_name = "C:\\Users\\Zoran Milicevic\\source\\repos\\OptimisationOfGraphAlgorithms\\GraphAlgorithms\\log.txt";
+
 	inline static const std::string py_module_name = "GenerateGraphModule";
 	inline static const std::map<GraphType, std::string> py_method_names = 
 	{

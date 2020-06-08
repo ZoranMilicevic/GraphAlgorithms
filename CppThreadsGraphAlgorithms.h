@@ -11,11 +11,11 @@ public:
 		:root(root), number_of_nodes(number_of_nodes) {
 		visited = new VisitedArrayCppThreads(number_of_nodes);
 	};
+
 	virtual ~CppThreadsGraphAlgorithms()
 	{
 		delete visited;
 	}
-
 
 	virtual void DFS();
 	virtual void BFS();

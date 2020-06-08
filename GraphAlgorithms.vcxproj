@@ -31,6 +31,9 @@
     <ClInclude Include="JoinThreads.h" />
     <ClInclude Include="Logger.h" />
     <ClInclude Include="GraphNode.h" />
+    <ClInclude Include="NodeResultReport.h" />
+    <ClInclude Include="ResultReport.h" />
+    <ClInclude Include="ResultReporter.h" />
     <ClInclude Include="SingleThreadGraphAlgorithms.h" />
     <ClInclude Include="ThreadPool.h" />
     <ClInclude Include="DataQueueCppThreads.h" />

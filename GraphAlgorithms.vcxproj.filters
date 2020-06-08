@@ -96,6 +96,15 @@
     <ClInclude Include="GraphNode.h">
       <Filter>GraphImpl</Filter>
     </ClInclude>
+    <ClInclude Include="ResultReporter.h">
+      <Filter>Logger</Filter>
+    </ClInclude>
+    <ClInclude Include="ResultReport.h">
+      <Filter>Logger</Filter>
+    </ClInclude>
+    <ClInclude Include="NodeResultReport.h">
+      <Filter>Logger</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="SingleThreadGraphAlgorithms.cpp">

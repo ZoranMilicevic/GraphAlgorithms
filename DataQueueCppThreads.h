@@ -29,14 +29,14 @@ public:
 		tail = new_node;
 
 		tail_mutex.unlock();
-		cond_var.notify_all();
-		std::cout << "NOTIFIED ALL" << std::endl;
+		//cond_var.notify_all();
 	}
 
+	//todo fix pop
 	virtual T* pop()
 	{
 		std::unique_lock<std::mutex> head_lock(head_mutex);
-		cond_var.wait_for(head_lock, ConfigurationParameters::cond_var_wait_time, [&] { std::cout << "CHECKED" << std::endl; return head != get_tail(); });
+		cond_var.wait_for(head_lock, ConfigurationParameters::cond_var_wait_time, [&] { return head != get_tail(); });
 
 		DataNode<T>* old_head = head;
 		head = head->next;
@@ -61,6 +61,12 @@ public:
 	}
 
 protected:
+	DataNode<T>* get_tail()
+	{
+		std::lock_guard<std::mutex> tail_lock(tail_mutex);
+		return tail;
+	}
+
 	DataNode<T>* head;
 	DataNode<T>* tail;
 

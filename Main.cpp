@@ -6,15 +6,15 @@ using namespace std;
 
 int main() 
 {
-	GraphGenerator gen = GraphGenerator::getInstance();
-	GraphNode* root = gen.generateGraph(GraphType::CompleteGraph, 10);
+	GraphGenerator gen = GraphGenerator::get_instance();
+	GraphNode* root = gen.generate_graph(GraphType::CompleteGraph, 10);
 	
 	
 	//SingleThreadGraphAlgorithms* ga = new SingleThreadGraphAlgorithms(root, 10);
 	//ga->BFS();
 	
 	
-	Logger::getInstance()->logMessage("Start");
+	Logger::get_instance()->log_message("Start");
 
 
 	CppThreadsGraphAlgorithms* cpa = new CppThreadsGraphAlgorithms(root, 10);
@@ -22,7 +22,7 @@ int main()
 
 
 	ThreadPool::getInstance()->joinThreadsFromPool();
-	Logger::getInstance()->joinThread();
+	Logger::get_instance()->log_message("Done");
 	
 	return 0;
 }

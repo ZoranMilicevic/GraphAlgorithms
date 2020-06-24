@@ -9,6 +9,7 @@ using namespace std;
 
 void SingleThreadGraphAlgorithms::DFS()
 {
+
 	DataStackSingleThread<GraphNode> stack;
 
 	stack.push(*root);

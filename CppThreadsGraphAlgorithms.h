@@ -7,25 +7,11 @@
 
 class CppThreadsGraphAlgorithms{
 public:
-	CppThreadsGraphAlgorithms(GraphNode* root, int number_of_nodes) 
-		:root(root), number_of_nodes(number_of_nodes) {
-		visited = new VisitedArrayCppThreads(number_of_nodes);
-	};
-
-	virtual ~CppThreadsGraphAlgorithms()
-	{
-		delete visited;
-	}
-
-	virtual void DFS();
-	virtual void BFS();
-
-	static void bfs_traversal(GraphNode* node);
-	static VisitedArrayCppThreads* visited;
-
-protected:	
-	GraphNode* root;
-	const int number_of_nodes;
+	static void DFS(GraphNode* node, int number_of_nodes);
+	static void dfs_traversal(GraphNode* node, VisitedArrayCppThreads* visited);
+	
+	static void BFS(GraphNode* node, int number_of_nodes);
+	static void bfs_traversal(GraphNode* node, VisitedArrayCppThreads* visited);
 };
 
 

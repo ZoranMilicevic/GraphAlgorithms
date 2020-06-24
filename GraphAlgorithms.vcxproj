@@ -21,19 +21,21 @@
   <ItemGroup>
     <ClInclude Include="ConfigurationParameters.h" />
     <ClInclude Include="CppThreadsGraphAlgorithms.h" />
-    <ClInclude Include="CPyInstance.h" />
-    <ClInclude Include="CPyObject.h" />
     <ClInclude Include="DataNode.h" />
     <ClInclude Include="DataQueueSingleThread.h" />
     <ClInclude Include="DataStackSingleThread.h" />
+    <ClInclude Include="GraphAlgorithms.h" />
     <ClInclude Include="GraphGenerator.h" />
-    <ClInclude Include="GraphType.h" />
     <ClInclude Include="JoinThreads.h" />
     <ClInclude Include="Logger.h" />
     <ClInclude Include="GraphNode.h" />
     <ClInclude Include="NodeResultReport.h" />
+    <ClInclude Include="pugiconfig.hpp" />
+    <ClInclude Include="pugixml.hpp" />
     <ClInclude Include="ResultReport.h" />
-    <ClInclude Include="ResultReporter.h" />
+    <ClInclude Include="ResultReportCppThreads.h" />
+    <ClInclude Include="ResultReportSingleThread.h" />
+    <ClInclude Include="ServerCommand.h" />
     <ClInclude Include="SingleThreadGraphAlgorithms.h" />
     <ClInclude Include="ThreadPool.h" />
     <ClInclude Include="DataQueueCppThreads.h" />
@@ -44,7 +46,9 @@
   <ItemGroup>
     <ClCompile Include="CppThreadsGraphAlgorithms.cpp" />
     <ClCompile Include="GraphGenerator.cpp" />
-    <ClCompile Include="Main.cpp" />
+    <ClCompile Include="pugixml.cpp" />
+    <ClCompile Include="ServerCommand.cpp" />
+    <ClCompile Include="ServerStartUp.cpp" />
     <ClCompile Include="SingleThreadGraphAlgorithms.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

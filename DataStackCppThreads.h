@@ -11,7 +11,10 @@ public:
 	DataStackCppThreads():head(NULL){}
 	DataStackCppThreads(DataNode<T>* head) : head(head) {}
 	DataStackCppThreads& operator=(const DataStackCppThreads&) = delete;
-	virtual ~DataStackCppThreads(){}
+	virtual ~DataStackCppThreads()
+	{
+		delete head;
+	}
 
 	virtual void push(const T& new_elem) 
 	{

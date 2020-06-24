@@ -15,7 +15,10 @@ class DataQueueCppThreads
 public:
 	DataQueueCppThreads(): head(new DataNode<T>()), tail(head), head_mutex(), tail_mutex(), cond_var(){};
 	DataQueueCppThreads& operator=(const DataQueueCppThreads&) = delete;
-	virtual ~DataQueueCppThreads() {}
+	virtual ~DataQueueCppThreads() 
+	{
+		delete head;
+	}
 
 	virtual void push(const T& new_elem)
 	{

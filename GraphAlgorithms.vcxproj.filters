@@ -4,9 +4,6 @@
     <Filter Include="Configuration">
       <UniqueIdentifier>{dc79fb19-b88d-4c4b-b620-ca34f3a70578}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Main">
-      <UniqueIdentifier>{7eb86345-91b5-4469-93eb-76236ca44b83}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Logger">
       <UniqueIdentifier>{e2dd885f-0ffc-4499-8f4e-a6a01ab0979d}</UniqueIdentifier>
     </Filter>
@@ -37,8 +34,14 @@
     <Filter Include="DataStructures\VisistedArray">
       <UniqueIdentifier>{db08d650-0d59-4b33-86a3-6eac3eb8a971}</UniqueIdentifier>
     </Filter>
-    <Filter Include="GraphImpl">
-      <UniqueIdentifier>{84d88b72-1382-48da-bd3f-d4c44d022da1}</UniqueIdentifier>
+    <Filter Include="ResultReporters">
+      <UniqueIdentifier>{ab9ef65a-4153-4765-ad33-048e50e80bea}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="XML Parser">
+      <UniqueIdentifier>{375ba34f-4a67-4eb9-919f-16f4f7023dd1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Server">
+      <UniqueIdentifier>{7eb86345-91b5-4469-93eb-76236ca44b83}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -52,12 +55,6 @@
       <Filter>GraphAlgorithms\SingleThread</Filter>
     </ClInclude>
     <ClInclude Include="GraphGenerator.h">
-      <Filter>GraphGenerators</Filter>
-    </ClInclude>
-    <ClInclude Include="CPyObject.h">
-      <Filter>GraphGenerators</Filter>
-    </ClInclude>
-    <ClInclude Include="CPyInstance.h">
       <Filter>GraphGenerators</Filter>
     </ClInclude>
     <ClInclude Include="CppThreadsGraphAlgorithms.h">
@@ -90,34 +87,52 @@
     <ClInclude Include="VisitedArraySingleThread.h">
       <Filter>DataStructures\VisistedArray</Filter>
     </ClInclude>
-    <ClInclude Include="GraphType.h">
-      <Filter>GraphImpl</Filter>
-    </ClInclude>
     <ClInclude Include="GraphNode.h">
-      <Filter>GraphImpl</Filter>
-    </ClInclude>
-    <ClInclude Include="ResultReporter.h">
-      <Filter>Logger</Filter>
-    </ClInclude>
-    <ClInclude Include="ResultReport.h">
-      <Filter>Logger</Filter>
+      <Filter>GraphGenerators</Filter>
     </ClInclude>
     <ClInclude Include="NodeResultReport.h">
-      <Filter>Logger</Filter>
+      <Filter>ResultReporters</Filter>
+    </ClInclude>
+    <ClInclude Include="ResultReportCppThreads.h">
+      <Filter>ResultReporters</Filter>
+    </ClInclude>
+    <ClInclude Include="ResultReport.h">
+      <Filter>ResultReporters</Filter>
+    </ClInclude>
+    <ClInclude Include="ResultReportSingleThread.h">
+      <Filter>ResultReporters</Filter>
+    </ClInclude>
+    <ClInclude Include="pugiconfig.hpp">
+      <Filter>XML Parser</Filter>
+    </ClInclude>
+    <ClInclude Include="pugixml.hpp">
+      <Filter>XML Parser</Filter>
+    </ClInclude>
+    <ClInclude Include="GraphAlgorithms.h">
+      <Filter>GraphAlgorithms</Filter>
+    </ClInclude>
+    <ClInclude Include="ServerCommand.h">
+      <Filter>Server</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="SingleThreadGraphAlgorithms.cpp">
       <Filter>GraphAlgorithms\SingleThread</Filter>
     </ClCompile>
-    <ClCompile Include="Main.cpp">
-      <Filter>Main</Filter>
-    </ClCompile>
     <ClCompile Include="GraphGenerator.cpp">
       <Filter>GraphGenerators</Filter>
     </ClCompile>
     <ClCompile Include="CppThreadsGraphAlgorithms.cpp">
       <Filter>GraphAlgorithms\CppThreads</Filter>
+    </ClCompile>
+    <ClCompile Include="ServerStartUp.cpp">
+      <Filter>Server</Filter>
+    </ClCompile>
+    <ClCompile Include="pugixml.cpp">
+      <Filter>XML Parser</Filter>
+    </ClCompile>
+    <ClCompile Include="ServerCommand.cpp">
+      <Filter>Server</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

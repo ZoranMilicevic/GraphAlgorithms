@@ -1,11 +1,11 @@
 Start
-LOGGER: Traversed node 0
-LOGGER: Traversed node 1
-LOGGER: Traversed node 2
-LOGGER: Traversed node 3
-LOGGER: Traversed node 4
-LOGGER: Traversed node 5
-LOGGER: Traversed node 6
-LOGGER: Traversed node 7
-LOGGER: Traversed node 8
-LOGGER: Traversed node 9
+INFO: Traversed node 0 by thread with id: 16408
+INFO: Traversed node 1 by thread with id: 16408
+INFO: Traversed node 2 by thread with id: 16408
+INFO: Traversed node 3 by thread with id: 16408
+INFO: Traversed node 4 by thread with id: 16408
+INFO: Traversed node 5 by thread with id: 16408
+INFO: Traversed node 6 by thread with id: 16408
+INFO: Traversed node 7 by thread with id: 16408
+INFO: Traversed node 8 by thread with id: 16408
+INFO: Traversed node 9 by thread with id: 16408

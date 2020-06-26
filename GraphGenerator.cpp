@@ -9,7 +9,7 @@ using namespace std;
 GraphNode* GraphGenerator::generate_graph(
 	std::vector<int> node_keys, 
 	std::vector<std::pair<int, int>> edges, 
-	int root_key = 0
+	int root_key
 )
 {
 	vector<GraphNode*> nodes;

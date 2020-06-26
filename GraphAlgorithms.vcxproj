@@ -33,9 +33,8 @@
     <ClInclude Include="pugiconfig.hpp" />
     <ClInclude Include="pugixml.hpp" />
     <ClInclude Include="ResultReport.h" />
-    <ClInclude Include="ResultReportCppThreads.h" />
-    <ClInclude Include="ResultReportSingleThread.h" />
     <ClInclude Include="ServerCommand.h" />
+    <ClInclude Include="ServerStartUp.h" />
     <ClInclude Include="SingleThreadGraphAlgorithms.h" />
     <ClInclude Include="ThreadPool.h" />
     <ClInclude Include="DataQueueCppThreads.h" />

@@ -2,6 +2,8 @@
 #include "GraphAlgorithms.h"
 #include "ServerCommand.h"
 #include "pugixml.hpp"
+#include "SingleThreadGraphAlgorithms.h"
+#include "CppThreadsGraphAlgorithms.h"
 
 using namespace std;
 using namespace pugi;
@@ -21,43 +23,48 @@ void process_attribute(const char* name, const char* value, ServerCommand* sc)
 		value_str.erase(0, pos + delimiter.length());
 		int second_key = stoi(value_str);
 
-		sc->add_edge(make_pair(first_key, second_key));
+		sc->edges.push_back(make_pair(first_key, second_key));
 	}
 	else if (name_str == "node_key")
 	{
-		sc->add_key(stoi(value_str));
+		sc->node_keys.push_back(stoi(value_str));
 	}
 	else if(name_str == "algorithm")
 	{
 		if (value_str == "dfs_single")
-			sc->set_algorithm(GraphAlgorithm::DFS_SINGLE);
-		else if(value_str == "bfs_single")
-			sc->set_algorithm(GraphAlgorithm::BFS_SINGLE);
-		else if(value_str == "dfs_cpp")
-			sc->set_algorithm(GraphAlgorithm::DFS_CPP);
-		else if(value_str == "bfs_cpp")
-			sc->set_algorithm(GraphAlgorithm::BFS_CPP)
+			sc->algorithm = GraphAlgorithm::DFS_SINGLE;
+		else if (value_str == "bfs_single")
+			sc->algorithm = GraphAlgorithm::BFS_SINGLE;
+		else if (value_str == "dfs_cpp")
+			sc->algorithm = GraphAlgorithm::DFS_CPP;
+		else if (value_str == "bfs_cpp")
+			sc->algorithm = GraphAlgorithm::BFS_CPP;
 	}
 	else if(name_str == "numberOfThreads")
 	{
-		sc->set_number_of_threads(stoi(value_str));
+		sc->number_of_threads = stoi(value_str);
 	}
 	else if(name_str == "numberOfNodes")
 	{
-		sc->set_number_of_nodes(stoi(value_str));
+		sc->number_of_nodes = stoi(value_str);
 	}
 	else if(name_str == "nodeTraverseTime")
 	{
-		sc->set_node_traverse_time(stoi(value_str));
+		sc->node_traverse_time = stoi(value_str);
+	}
+	else if (name_str == "condVarWaitTime")
+	{
+		sc->cond_var_wait_time = stoi(value_str);
 	}
 	else if(name_str == "rootKey")
 	{
-		sc->set_root_key(stoi(value_str));
+		sc->root_key = stoi(value_str);
 	}
 	else if(name_str == "graphType")
 	{
-		sc->set_graph_type(value_str);
+		sc->graph_type = value_str;
 	}
+
 
 }
 
@@ -77,32 +84,55 @@ ServerCommand* ServerCommand::create_from_xml(const char* buffer)
 		}
 	}
 
-	sc->create_graph();
+	sc->graph_root = GraphGenerator::generate_graph(sc->node_keys, sc->edges, sc->root_key);
 	
 	return sc;
 }
 
-ResultReport* ServerCommand::execute_command()
+void ServerCommand::execute_command()
 {
-	ResultReport* ret_val;
-
 	switch (this->algorithm)
 	{
 	case GraphAlgorithm::BFS_SINGLE:
-
+		this->execute_bfs_single_command();
 		break;
 	case GraphAlgorithm::DFS_SINGLE:
+		this->execute_dfs_single_command();
 		break;
 	case GraphAlgorithm::BFS_CPP:
+		this->execute_bfs_cpp_command();
 		break;
 	case GraphAlgorithm::DFS_CPP:
+		this->execute_dfs_cpp_command();
 		break;
 	default:
 		break;
 	}
 
-
-	return ret_val;
 }
+
+void ServerCommand::execute_bfs_single_command()
+{
+	ResultReport::create_new_repport()->fill_from_server_command(this);
+	SingleThreadGraphAlgorithms::BFS(this->graph_root, this->number_of_nodes);
+}
+
+void ServerCommand::execute_dfs_single_command()
+{
+	ResultReport::create_new_repport()->fill_from_server_command(this);
+}
+
+void ServerCommand::execute_bfs_cpp_command()
+{
+	ResultReport::create_new_repport()->fill_from_server_command(this);
+}
+
+void ServerCommand::execute_dfs_cpp_command()
+{
+	ResultReport::create_new_repport()->fill_from_server_command(this);
+}
+
+
+
 
 

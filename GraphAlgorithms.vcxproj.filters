@@ -93,13 +93,7 @@
     <ClInclude Include="NodeResultReport.h">
       <Filter>ResultReporters</Filter>
     </ClInclude>
-    <ClInclude Include="ResultReportCppThreads.h">
-      <Filter>ResultReporters</Filter>
-    </ClInclude>
     <ClInclude Include="ResultReport.h">
-      <Filter>ResultReporters</Filter>
-    </ClInclude>
-    <ClInclude Include="ResultReportSingleThread.h">
       <Filter>ResultReporters</Filter>
     </ClInclude>
     <ClInclude Include="pugiconfig.hpp">
@@ -112,6 +106,9 @@
       <Filter>GraphAlgorithms</Filter>
     </ClInclude>
     <ClInclude Include="ServerCommand.h">
+      <Filter>Server</Filter>
+    </ClInclude>
+    <ClInclude Include="ServerStartUp.h">
       <Filter>Server</Filter>
     </ClInclude>
   </ItemGroup>

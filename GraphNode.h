@@ -24,7 +24,7 @@ public:
 
 	void traverseNode() 
 	{
-		NodeResultReport* node_result_report = new NodeResultReport(std::this_thread::get_id(), std::chrono::system_clock::now());
+		NodeResultReport* node_result_report = new NodeResultReport(key, std::this_thread::get_id(), std::chrono::system_clock::now());
 		ResultReport::get_cur_repport()->add_node_result_report(node_result_report);
 		std::this_thread::sleep_for(ConfigurationParameters::node_traverse_time);
 	}

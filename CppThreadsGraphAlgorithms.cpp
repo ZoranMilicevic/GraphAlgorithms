@@ -1,5 +1,4 @@
 #include "CppThreadsGraphAlgorithms.h"
-#include "ResultReportCppThreads.h"
 using namespace std;
 
 

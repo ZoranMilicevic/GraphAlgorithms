@@ -25,7 +25,7 @@ void SingleThreadGraphAlgorithms::DFS(GraphNode* root, int number_of_nodes)
 		{
 			curNode->traverseNode();
 			if (visited.increment_visited())
-				return;
+				break;
 		}
 
 		for (auto&& neighbour : curNode->neighbours) {
@@ -55,7 +55,7 @@ void SingleThreadGraphAlgorithms::BFS(GraphNode* root, int number_of_nodes)
 		{
 			curNode->traverseNode();
 			if (visited.increment_visited())
-				return;
+				break;
 		}
 
 		for (auto&& neighbour : curNode->neighbours) {

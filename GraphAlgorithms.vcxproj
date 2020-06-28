@@ -27,7 +27,6 @@
     <ClInclude Include="GraphAlgorithms.h" />
     <ClInclude Include="GraphGenerator.h" />
     <ClInclude Include="JoinThreads.h" />
-    <ClInclude Include="Logger.h" />
     <ClInclude Include="GraphNode.h" />
     <ClInclude Include="NodeResultReport.h" />
     <ClInclude Include="pugiconfig.hpp" />

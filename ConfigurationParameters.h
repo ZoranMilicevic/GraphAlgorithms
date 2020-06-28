@@ -15,7 +15,5 @@ public:
 
 	inline static int wait_time = 100;
 	inline static std::chrono::microseconds cond_var_wait_time{ wait_time };
-
-	inline static unsigned thread_count = 1;//std::thread::hardware_concurrency();
 };
 

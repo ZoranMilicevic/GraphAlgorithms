@@ -29,7 +29,7 @@ void CppThreadsGraphAlgorithms::bfs_traversal(GraphNode* node, VisitedArrayCppTh
 
 	if (visited->visited_all())
 	{
-		//todo
+		//todo signal visited all
 		return;
 	}
 

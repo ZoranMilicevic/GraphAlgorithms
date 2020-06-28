@@ -4,9 +4,6 @@
     <Filter Include="Configuration">
       <UniqueIdentifier>{dc79fb19-b88d-4c4b-b620-ca34f3a70578}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Logger">
-      <UniqueIdentifier>{e2dd885f-0ffc-4499-8f4e-a6a01ab0979d}</UniqueIdentifier>
-    </Filter>
     <Filter Include="GraphAlgorithms">
       <UniqueIdentifier>{1142b7fe-6cf9-4a84-bdf6-cd80f6eea068}</UniqueIdentifier>
     </Filter>
@@ -47,9 +44,6 @@
   <ItemGroup>
     <ClInclude Include="ConfigurationParameters.h">
       <Filter>Configuration</Filter>
-    </ClInclude>
-    <ClInclude Include="Logger.h">
-      <Filter>Logger</Filter>
     </ClInclude>
     <ClInclude Include="SingleThreadGraphAlgorithms.h">
       <Filter>GraphAlgorithms\SingleThread</Filter>

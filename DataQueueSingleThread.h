@@ -6,7 +6,7 @@ template <class T>
 class DataQueueSingleThread
 {
 public:
-	DataQueueSingleThread() :head(NULL), tail(NULL) {};
+	DataQueueSingleThread() :head(nullptr), tail(nullptr) {};
 	DataQueueSingleThread(T* head) :head(head), tail(head) {};
 	DataQueueSingleThread(T* head, T* tail) : head(head), tail(tail) {};
 	virtual ~DataQueueSingleThread() 
@@ -19,25 +19,33 @@ public:
 		T* new_data = new T(std::move(new_elem));
 		DataNode<T>* new_node = new DataNode<T>();
 		new_node->data = new_data;
+		new_node->next = nullptr;
 
-		tail->next = new_node;
-		tail = new_node;
+		if (tail == nullptr)
+			head = tail = new_node;
+		else 
+		{
+			tail->next = new_node;
+			tail = new_node;
+		}
 	};
 
 	virtual T* pop()
 	{
 		if (empty())
-			return NULL;
+			return nullptr;
 
 		DataNode<T>* old_head = head;
 		head = head->next;
+
+		if (head == nullptr) tail = nullptr;
 
 		return old_head->data;
 	};
 
 	virtual bool empty() const
 	{
-		return head == NULL;
+		return head == nullptr;
 	};
 
 protected:

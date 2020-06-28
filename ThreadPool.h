@@ -14,6 +14,7 @@ class ThreadPool
     DataQueueCppThreads<std::function<void()>> work_queue;
     std::vector<std::thread> threads;
     JoinThreads joiner;
+    unsigned thread_count;
 
     void worker_thread()
     {
@@ -28,9 +29,9 @@ class ThreadPool
     }
 
 public:
-    ThreadPool() : done(false), joiner(threads)
+    ThreadPool(int numberOfThreads) : done(false), joiner(threads)
     {
-        unsigned const thread_count = ConfigurationParameters::thread_count;
+        thread_count = numberOfThreads;
         try
         {
             for (unsigned i = 0; i < thread_count; ++i)
@@ -48,9 +49,9 @@ public:
         done = true;
     }
 
-    static ThreadPool* getInstance()
+    static ThreadPool* getInstance(int numberOfThreads = 0)
     {
-        static ThreadPool* pool = new ThreadPool();
+        static ThreadPool* pool = new ThreadPool(numberOfThreads);
         return pool;
     }
 
@@ -62,6 +63,11 @@ public:
     void stopThreads()
     {
         done = true;
+    }
+
+    int get_thread_count()
+    {
+        return thread_count;
     }
 
     template<typename FunctionType>

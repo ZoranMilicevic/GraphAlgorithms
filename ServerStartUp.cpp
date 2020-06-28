@@ -3,12 +3,13 @@
 #include <thread>
 #include "ServerCommand.h"
 #include "ServerStartUp.h"
+#include "ThreadPool.h"
 
 using namespace std;
 
 //global vars
 atomic<bool> listen_for_connections = true;
-static const int BUFFER_SIZE = 16384;
+static const int BUFFER_SIZE = 8192;
 
 
 SOCKET create_listening_socket()
@@ -80,7 +81,7 @@ void listen_on_listening_socket(SOCKET listening)
 		}
 
 		//spawn a thread for client
-		thread thr(listen_on_client_socket, client_socket);
+		thread thr(listen_on_client_socket, client_socket, string(host), string(service));
 		thr.detach();
 	}
 
@@ -88,7 +89,7 @@ void listen_on_listening_socket(SOCKET listening)
 	closesocket(listening);
 }
 
-void listen_on_client_socket(SOCKET client_socket)
+void listen_on_client_socket(SOCKET client_socket, string host, string service)
 {
 	char buf[BUFFER_SIZE];
 
@@ -99,7 +100,7 @@ void listen_on_client_socket(SOCKET client_socket)
 		int bytes_received = recv(client_socket, buf, BUFFER_SIZE, 0);
 		if (bytes_received == SOCKET_ERROR)
 		{
-			//todo print error
+			cout << "Error while reading data from socket. " << endl;
 		}
 
 		buf[bytes_received + 1] = '\0';
@@ -109,23 +110,28 @@ void listen_on_client_socket(SOCKET client_socket)
 		{
 			break;
 		}
-
-		//echo message back to client
-		ServerCommand::create_from_xml(received_string)->execute_command();
-		string xml_string = ResultReport::get_cur_repport()->to_xml_string();
-		send(client_socket, xml_string.c_str(), xml_string.size(), 0);
+		else if(received_string == "shut_down")
+		{
+			listen_for_connections = false;
+		}
+		else 
+		{
+			//echo message back to client
+			ServerCommand::create_from_xml(received_string)->execute_command();
+			string xml_string = ResultReport::get_cur_repport()->to_xml_string();
+			send(client_socket, xml_string.c_str(), xml_string.size(), 0);
+		}
 	}
 
 	//close client socket
+	cout << host << " disconnected from port " << service << endl;
 	closesocket(client_socket);
-
-	//shutdown winsock
-	WSACleanup();
 }
 
 
 int server_init() 
 {
+
 	SOCKET listening = create_listening_socket();
 	listen_on_listening_socket(listening);
 	return 0;
@@ -133,5 +139,6 @@ int server_init()
 
 int main()
 {
+	//todo create server thread pool
 	server_init();
 }

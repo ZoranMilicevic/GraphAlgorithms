@@ -8,7 +8,7 @@ template <class T>
 class DataStackCppThreads
 {
 public:
-	DataStackCppThreads():head(NULL){}
+	DataStackCppThreads():head(nullptr){}
 	DataStackCppThreads(DataNode<T>* head) : head(head) {}
 	DataStackCppThreads& operator=(const DataStackCppThreads&) = delete;
 	virtual ~DataStackCppThreads()
@@ -32,7 +32,7 @@ public:
 	{
 		std::unique_lock<std::mutex> lock(head_mutex);
 
-		cond_var.wait(lock, [this] {return head != NULL; });
+		cond_var.wait(lock, [this] {return head != nullptr; });
 
 		DataNode<T>* old_head = head;
 		head = head->next;
@@ -47,7 +47,7 @@ public:
 	{
 		std::lock_guard<std::mutex> lock(head_mutex);
 
-		if (head == NULL)
+		if (head == nullptr)
 			return NULL;
 
 		DataNode<T>* old_head = head;
@@ -59,7 +59,7 @@ public:
 	virtual bool empty() 
 	{
 		std::lock_guard<std::mutex> lock(head_mutex);
-		return head == NULL;
+		return head == nullptr;
 	}
 
 private:

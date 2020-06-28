@@ -6,7 +6,7 @@ template <class T>
 class DataStackSingleThread
 {
 public:
-	DataStackSingleThread() :head(NULL) {}
+	DataStackSingleThread() :head(nullptr) {}
 	DataStackSingleThread(DataNode<T>* head) :head(head) {}
 	virtual ~DataStackSingleThread() {}
 
@@ -23,7 +23,7 @@ public:
 	virtual T* pop()
 	{
 		if (empty())
-			return NULL;
+			return nullptr;
 
 		DataNode<T>* old_head = head;
 		head = head->next;
@@ -33,7 +33,7 @@ public:
 	
 	virtual bool empty() const
 	{
-		return head == NULL;
+		return head == nullptr;
 	}
 
 protected:

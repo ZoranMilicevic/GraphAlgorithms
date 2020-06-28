@@ -15,21 +15,7 @@ void process_attribute(const char* name, const char* value, ServerCommand* sc)
 	string name_str(name);
 	string value_str(value);
 
-	if (name_str == "edge")
-	{
-		size_t pos = value_str.find(delimiter);
-		string first_key_str = value_str.substr(0, pos);
-		int first_key = stoi(first_key_str);
-		value_str.erase(0, pos + delimiter.length());
-		int second_key = stoi(value_str);
-
-		sc->edges.push_back(make_pair(first_key, second_key));
-	}
-	else if (name_str == "nodeKey")
-	{
-		sc->node_keys.push_back(stoi(value_str));
-	}
-	else if(name_str == "algorithm")
+	if(name_str == "algorithm")
 	{
 		sc->algorithm = string_to_graph_algorithm.at(value_str);
 	}
@@ -57,24 +43,37 @@ void process_attribute(const char* name, const char* value, ServerCommand* sc)
 	{
 		sc->graph_type = value_str;
 	}
-
-
 }
+
 
 ServerCommand* ServerCommand::create_from_xml(const string& buffer)
 {
 	xml_document doc;
 	ServerCommand* sc = new ServerCommand();
+
 	xml_parse_result res = doc.load_string((const pugi::char_t*)buffer.c_str());
-	
-	for (pugi::xml_node node = doc.first_child(); node; node = node.next_sibling())
+	pugi::xml_node params = doc.child("serverCommand").child("params");
+
+	for (pugi::xml_attribute attr : params.attributes())
 	{
-		for (pugi::xml_attribute attr = node.first_attribute(); attr; attr = attr.next_attribute())
-		{
-			const char* name = attr.name();
-			const char* value = attr.value();
-			process_attribute(name, value, sc);
-		}
+		process_attribute(attr.name(), attr.value(), sc);
+	}
+
+	pugi::xml_node nodes = doc.child("serverCommand").child("graph").child("nodes");
+	for(pugi::xml_node node : nodes.children("node"))
+	{
+		string value = node.attribute("nodeKey").value();
+		sc->node_keys.push_back(stoi(value));
+	}
+
+	pugi::xml_node edges = doc.child("serverCommand").child("graph").child("edges");
+	for (pugi::xml_node edge : edges.children("edge"))
+	{
+		string edge1 = edge.attribute("edge1").value();
+		string edge2 = edge.attribute("edge2").value();
+		int key1 = stoi(edge1);
+		int key2 = stoi(edge2);
+		sc->edges.push_back(make_pair(key1, key2));
 	}
 
 	sc->graph_root = GraphGenerator::generate_graph(sc->node_keys, sc->edges, sc->root_key);
@@ -113,6 +112,7 @@ void ServerCommand::execute_bfs_single_command()
 void ServerCommand::execute_dfs_single_command()
 {
 	ResultReport::create_new_repport()->fill_from_server_command(this);
+	SingleThreadGraphAlgorithms::DFS(this->graph_root, this->number_of_nodes);
 }
 
 void ServerCommand::execute_bfs_cpp_command()

@@ -16,10 +16,6 @@ public:
 	ServerCommand() {};
 
 	void execute_command();
-	void execute_bfs_single_command();
-	void execute_dfs_single_command();
-	void execute_bfs_cpp_command();
-	void execute_dfs_cpp_command();
 
 	void create_graph()
 	{

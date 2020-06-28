@@ -83,50 +83,26 @@ ServerCommand* ServerCommand::create_from_xml(const string& buffer)
 
 void ServerCommand::execute_command()
 {
+	ResultReport::create_new_repport()->fill_from_server_command(this);
 	switch (this->algorithm)
 	{
 	case GraphAlgorithm::BFS_SINGLE:
-		this->execute_bfs_single_command();
+		SingleThreadGraphAlgorithms::BFS(this);
 		break;
 	case GraphAlgorithm::DFS_SINGLE:
-		this->execute_dfs_single_command();
+		SingleThreadGraphAlgorithms::DFS(this);
 		break;
 	case GraphAlgorithm::BFS_CPP:
-		this->execute_bfs_cpp_command();
+		CppThreadsGraphAlgorithms::BFS(this);
 		break;
 	case GraphAlgorithm::DFS_CPP:
-		this->execute_dfs_cpp_command();
+		CppThreadsGraphAlgorithms::DFS(this);
 		break;
 	default:
 		break;
 	}
 
 }
-
-void ServerCommand::execute_bfs_single_command()
-{
-	ResultReport::create_new_repport()->fill_from_server_command(this);
-	SingleThreadGraphAlgorithms::BFS(this);
-}
-
-void ServerCommand::execute_dfs_single_command()
-{
-	ResultReport::create_new_repport()->fill_from_server_command(this);
-	SingleThreadGraphAlgorithms::DFS(this);
-}
-
-void ServerCommand::execute_bfs_cpp_command()
-{
-	ResultReport::create_new_repport()->fill_from_server_command(this);
-
-}
-
-void ServerCommand::execute_dfs_cpp_command()
-{
-	ResultReport::create_new_repport()->fill_from_server_command(this);
-}
-
-
 
 
 

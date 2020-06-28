@@ -16,7 +16,6 @@ void ResultReport::fill_from_server_command(ServerCommand* sc)
 	node_results = new NodeResultReport * [number_of_nodes];
 }
 
-//todo: make better
 std::string ResultReport::to_xml_string()
 {
 	std::ostringstream xml_string;

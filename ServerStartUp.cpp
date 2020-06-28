@@ -3,7 +3,6 @@
 #include <thread>
 #include "ServerCommand.h"
 #include "ServerStartUp.h"
-#include "ThreadPool.h"
 
 using namespace std;
 
@@ -43,7 +42,11 @@ SOCKET create_listening_socket()
 	bind(listening, (sockaddr*)&addr, sizeof(addr));
 
 	//tell winsock that the socket is for listening
-	listen(listening, SOMAXCONN);
+	int error = listen(listening, SOMAXCONN);
+	if(error == SOCKET_ERROR)
+	{
+		cout << "Can't listen on socket. Err# " << WSAGetLastError() << endl;
+	}
 
 	return listening;
 }

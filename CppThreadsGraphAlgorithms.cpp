@@ -16,7 +16,11 @@ void CppThreadsGraphAlgorithms::dfs_traversal(GraphNode* node, VisitedArrayCppTh
 void CppThreadsGraphAlgorithms::BFS(ServerCommand* command)
 {
 	VisitedArrayCppThreads* visited = new VisitedArrayCppThreads(command->number_of_nodes);
+	
+	ResultReport::get_cur_repport()->start_time = chrono::system_clock::now();
 	ThreadPool::getInstance(command->number_of_threads)->submit([=]()->void { CppThreadsGraphAlgorithms::bfs_traversal(command->graph_root, visited, command->node_traverse_time); });
+	
+	ThreadPool::getInstance()->joinThreadsFromPool();
 	ThreadPool::destroy_pool();
 }
 

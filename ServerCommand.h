@@ -3,14 +3,15 @@
 #include <map>
 #include <string>
 #include <utility>
-#include "GraphAlgorithms.h"
 #include "GraphNode.h"
 #include "GraphGenerator.h"
+
+enum class GraphAlgorithm;
 
 class ServerCommand
 {
 public:
-	static ServerCommand* create_from_xml(const char* buffer);
+	static ServerCommand* create_from_xml(const std::string& buffer);
 
 	ServerCommand() {};
 

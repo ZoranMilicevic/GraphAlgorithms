@@ -1,12 +1,14 @@
 #include <iostream>
 #include <atomic>
 #include <thread>
+#include "ServerCommand.h"
 #include "ServerStartUp.h"
 
 using namespace std;
 
 //global vars
 atomic<bool> listen_for_connections = true;
+static const int BUFFER_SIZE = 16384;
 
 
 SOCKET create_listening_socket()
@@ -88,13 +90,13 @@ void listen_on_listening_socket(SOCKET listening)
 
 void listen_on_client_socket(SOCKET client_socket)
 {
-	char buf[4096];
+	char buf[BUFFER_SIZE];
 
 	while (true)
 	{
-		ZeroMemory(buf, 4096);
+		ZeroMemory(buf, BUFFER_SIZE);
 		//wait for data
-		int bytes_received = recv(client_socket, buf, 4096, 0);
+		int bytes_received = recv(client_socket, buf, BUFFER_SIZE, 0);
 		if (bytes_received == SOCKET_ERROR)
 		{
 			//todo print error
@@ -109,7 +111,9 @@ void listen_on_client_socket(SOCKET client_socket)
 		}
 
 		//echo message back to client
-		send(client_socket, buf, bytes_received + 1, 0);
+		ServerCommand::create_from_xml(received_string)->execute_command();
+		string xml_string = ResultReport::get_cur_repport()->to_xml_string();
+		send(client_socket, xml_string.c_str(), xml_string.size(), 0);
 	}
 
 	//close client socket

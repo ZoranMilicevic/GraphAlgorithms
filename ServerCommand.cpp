@@ -1,9 +1,9 @@
 #include <string>
-#include "GraphAlgorithms.h"
 #include "ServerCommand.h"
 #include "pugixml.hpp"
 #include "SingleThreadGraphAlgorithms.h"
 #include "CppThreadsGraphAlgorithms.h"
+#include "GraphAlgorithms.h"
 
 using namespace std;
 using namespace pugi;
@@ -17,7 +17,7 @@ void process_attribute(const char* name, const char* value, ServerCommand* sc)
 
 	if (name_str == "edge")
 	{
-		int pos = value_str.find(delimiter);
+		size_t pos = value_str.find(delimiter);
 		string first_key_str = value_str.substr(0, pos);
 		int first_key = stoi(first_key_str);
 		value_str.erase(0, pos + delimiter.length());
@@ -25,20 +25,13 @@ void process_attribute(const char* name, const char* value, ServerCommand* sc)
 
 		sc->edges.push_back(make_pair(first_key, second_key));
 	}
-	else if (name_str == "node_key")
+	else if (name_str == "nodeKey")
 	{
 		sc->node_keys.push_back(stoi(value_str));
 	}
 	else if(name_str == "algorithm")
 	{
-		if (value_str == "dfs_single")
-			sc->algorithm = GraphAlgorithm::DFS_SINGLE;
-		else if (value_str == "bfs_single")
-			sc->algorithm = GraphAlgorithm::BFS_SINGLE;
-		else if (value_str == "dfs_cpp")
-			sc->algorithm = GraphAlgorithm::DFS_CPP;
-		else if (value_str == "bfs_cpp")
-			sc->algorithm = GraphAlgorithm::BFS_CPP;
+		sc->algorithm = string_to_graph_algorithm.at(value_str);
 	}
 	else if(name_str == "numberOfThreads")
 	{
@@ -68,11 +61,11 @@ void process_attribute(const char* name, const char* value, ServerCommand* sc)
 
 }
 
-ServerCommand* ServerCommand::create_from_xml(const char* buffer)
+ServerCommand* ServerCommand::create_from_xml(const string& buffer)
 {
 	xml_document doc;
 	ServerCommand* sc = new ServerCommand();
-	xml_parse_result res = doc.load_string((const pugi::char_t*)buffer);
+	xml_parse_result res = doc.load_string((const pugi::char_t*)buffer.c_str());
 	
 	for (pugi::xml_node node = doc.first_child(); node; node = node.next_sibling())
 	{

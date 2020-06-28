@@ -1,9 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Configuration">
-      <UniqueIdentifier>{dc79fb19-b88d-4c4b-b620-ca34f3a70578}</UniqueIdentifier>
-    </Filter>
     <Filter Include="GraphAlgorithms">
       <UniqueIdentifier>{1142b7fe-6cf9-4a84-bdf6-cd80f6eea068}</UniqueIdentifier>
     </Filter>
@@ -42,9 +39,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="ConfigurationParameters.h">
-      <Filter>Configuration</Filter>
-    </ClInclude>
     <ClInclude Include="SingleThreadGraphAlgorithms.h">
       <Filter>GraphAlgorithms\SingleThread</Filter>
     </ClInclude>

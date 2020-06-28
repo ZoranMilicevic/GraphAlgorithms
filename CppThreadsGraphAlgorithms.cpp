@@ -22,6 +22,7 @@ void CppThreadsGraphAlgorithms::BFS(ServerCommand* command)
 	
 	ThreadPool::getInstance()->joinThreadsFromPool();
 	ThreadPool::destroy_pool();
+	delete visited;
 }
 
 void CppThreadsGraphAlgorithms::bfs_traversal(GraphNode* node, VisitedArrayCppThreads* visited, int traverse_time)

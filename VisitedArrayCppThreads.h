@@ -22,6 +22,7 @@ public:
 	virtual ~VisitedArrayCppThreads() 
 	{
 		delete visited;
+		//delete sh_mutex_array;
 	}
 
 	virtual bool test_and_set_visited(int node_id)

@@ -19,7 +19,6 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="ConfigurationParameters.h" />
     <ClInclude Include="CppThreadsGraphAlgorithms.h" />
     <ClInclude Include="DataNode.h" />
     <ClInclude Include="DataQueueSingleThread.h" />

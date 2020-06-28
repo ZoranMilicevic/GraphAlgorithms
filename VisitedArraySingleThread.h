@@ -7,7 +7,10 @@ public:
 		:number_of_nodes(number_of_nodes), 
 		visited(new bool[number_of_nodes]()),
 		number_of_visited(0) {}
-	virtual ~VisitedArraySingleThread() {}
+	virtual ~VisitedArraySingleThread() 
+	{
+		delete visited;
+	}
 
 	virtual bool test_and_set_visited(int node_id)
 	{

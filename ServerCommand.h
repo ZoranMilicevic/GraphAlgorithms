@@ -14,6 +14,11 @@ public:
 	static ServerCommand* create_from_xml(const std::string& buffer);
 
 	ServerCommand() {};
+	~ServerCommand()
+	{
+		delete graph_root;
+	}
+
 
 	void execute_command();
 

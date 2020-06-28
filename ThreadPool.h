@@ -6,7 +6,7 @@
 #include <functional>
 #include "DataQueueCppThreads.h"
 #include "JoinThreads.h"
-#include "ConfigurationParameters.h"
+
 
 class ThreadPool
 {
@@ -14,7 +14,6 @@ class ThreadPool
     DataQueueCppThreads<std::function<void()>> work_queue;
     std::vector<std::thread> threads;
     JoinThreads joiner;
-    unsigned thread_count;
     inline static ThreadPool* pool;
 
     void worker_thread()
@@ -32,7 +31,7 @@ class ThreadPool
 public:
     ThreadPool(int numberOfThreads) : done(false), joiner(threads)
     {
-        thread_count = numberOfThreads;
+        unsigned const thread_count = numberOfThreads;
         try
         {
             for (unsigned i = 0; i < thread_count; ++i)

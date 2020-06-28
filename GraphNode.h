@@ -15,6 +15,11 @@ public:
 
 	GraphNode(int key) : key(key) {}
 	GraphNode(int key, const std::vector<GraphNode*> neighbours) :key(key), neighbours(neighbours) {}
+	~GraphNode(){
+		for (GraphNode* elem : neighbours)
+			delete elem;
+	}
+
 
 	void addNeighbour(GraphNode* node)
 	{

@@ -3,8 +3,6 @@
 #include <vector>
 #include <string>
 #include <utility>
-#include "ConfigurationParameters.h"
-
 #include "GraphNode.h"
 
 class GraphGenerator

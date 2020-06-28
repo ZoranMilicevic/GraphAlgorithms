@@ -4,7 +4,6 @@
 #include <condition_variable>
 #include <atomic>
 #include "DataNode.h"
-#include "ConfigurationParameters.h"
 #include <iostream>
 
 //using a dummy node
@@ -39,7 +38,7 @@ public:
 	virtual T* pop()
 	{
 		std::unique_lock<std::mutex> head_lock(head_mutex);
-		cond_var.wait_for(head_lock, ConfigurationParameters::cond_var_wait_time, [&] { return head != get_tail(); });
+		cond_var.wait(head_lock, [&] { return head != get_tail(); });
 
 		DataNode<T>* old_head = head;
 		head = head->next;

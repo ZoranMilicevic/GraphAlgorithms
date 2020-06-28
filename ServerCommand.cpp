@@ -106,18 +106,19 @@ void ServerCommand::execute_command()
 void ServerCommand::execute_bfs_single_command()
 {
 	ResultReport::create_new_repport()->fill_from_server_command(this);
-	SingleThreadGraphAlgorithms::BFS(this->graph_root, this->number_of_nodes);
+	SingleThreadGraphAlgorithms::BFS(this);
 }
 
 void ServerCommand::execute_dfs_single_command()
 {
 	ResultReport::create_new_repport()->fill_from_server_command(this);
-	SingleThreadGraphAlgorithms::DFS(this->graph_root, this->number_of_nodes);
+	SingleThreadGraphAlgorithms::DFS(this);
 }
 
 void ServerCommand::execute_bfs_cpp_command()
 {
 	ResultReport::create_new_repport()->fill_from_server_command(this);
+
 }
 
 void ServerCommand::execute_dfs_cpp_command()

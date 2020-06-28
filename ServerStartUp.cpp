@@ -131,7 +131,6 @@ void listen_on_client_socket(SOCKET client_socket, string host, string service)
 
 int server_init() 
 {
-
 	SOCKET listening = create_listening_socket();
 	listen_on_listening_socket(listening);
 	return 0;
@@ -139,6 +138,5 @@ int server_init()
 
 int main()
 {
-	//todo create server thread pool
 	server_init();
 }

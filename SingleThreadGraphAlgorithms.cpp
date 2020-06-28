@@ -8,14 +8,14 @@
 using namespace std;
 
 
-void SingleThreadGraphAlgorithms::DFS(GraphNode* root, int number_of_nodes)
+void SingleThreadGraphAlgorithms::DFS(ServerCommand* command)
 {
 	ResultReport::get_cur_repport()->start_time = chrono::system_clock::now();
 	
 	DataStackSingleThread<GraphNode> stack;
-	VisitedArraySingleThread visited(number_of_nodes);
+	VisitedArraySingleThread visited(command->number_of_nodes);
 
-	stack.push(*root);
+	stack.push(*command->graph_root);
 
 	while (!stack.empty())
 	{
@@ -23,7 +23,7 @@ void SingleThreadGraphAlgorithms::DFS(GraphNode* root, int number_of_nodes)
 
 		if (!visited.test_and_set_visited(curNode->key))
 		{
-			curNode->traverseNode();
+			curNode->traverseNode(command->node_traverse_time);
 			if (visited.increment_visited())
 				break;
 		}
@@ -38,14 +38,14 @@ void SingleThreadGraphAlgorithms::DFS(GraphNode* root, int number_of_nodes)
 	ResultReport::get_cur_repport()->elapsed_time = ResultReport::get_cur_repport()->end_time - ResultReport::get_cur_repport()->start_time;
 }
 
-void SingleThreadGraphAlgorithms::BFS(GraphNode* root, int number_of_nodes)
+void SingleThreadGraphAlgorithms::BFS(ServerCommand* command)
 {
 	ResultReport::get_cur_repport()->start_time = chrono::system_clock::now();
 
 	DataQueueSingleThread<GraphNode> queue;
-	VisitedArraySingleThread visited(number_of_nodes);
+	VisitedArraySingleThread visited(command->number_of_nodes);
 
-	queue.push(*root);
+	queue.push(*command->graph_root);
 
 	while (!queue.empty())
 	{
@@ -53,7 +53,7 @@ void SingleThreadGraphAlgorithms::BFS(GraphNode* root, int number_of_nodes)
 
 		if (!visited.test_and_set_visited(curNode->key))
 		{
-			curNode->traverseNode();
+			curNode->traverseNode(command->node_traverse_time);
 			if (visited.increment_visited())
 				break;
 		}

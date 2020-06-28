@@ -4,7 +4,6 @@
 #include <chrono>
 #include "NodeResultReport.h"
 #include "ResultReport.h"
-#include "ConfigurationParameters.h"
 
 #include <iostream>
 
@@ -22,10 +21,12 @@ public:
 		neighbours.push_back(node);
 	}
 
-	void traverseNode() 
+	void traverseNode(int traverse_time) 
 	{
 		NodeResultReport* node_result_report = new NodeResultReport(key, std::this_thread::get_id(), std::chrono::system_clock::now());
 		ResultReport::get_cur_repport()->add_node_result_report(node_result_report);
-		std::this_thread::sleep_for(ConfigurationParameters::node_traverse_time);
+		
+		std::chrono::microseconds node_traverse_time{ traverse_time };
+		std::this_thread::sleep_for(node_traverse_time);
 	}
 };

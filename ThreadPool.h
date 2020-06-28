@@ -15,6 +15,7 @@ class ThreadPool
     std::vector<std::thread> threads;
     JoinThreads joiner;
     unsigned thread_count;
+    inline static ThreadPool* pool;
 
     void worker_thread()
     {
@@ -51,7 +52,8 @@ public:
 
     static ThreadPool* getInstance(int numberOfThreads = 0)
     {
-        static ThreadPool* pool = new ThreadPool(numberOfThreads);
+        if(pool == nullptr)
+            pool = new ThreadPool(numberOfThreads);
         return pool;
     }
 
@@ -65,10 +67,11 @@ public:
         done = true;
     }
 
-    int get_thread_count()
+    static void destroy_pool()
     {
-        return thread_count;
+        delete pool;
     }
+
 
     template<typename FunctionType>
     void submit(FunctionType f)

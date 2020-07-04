@@ -1,8 +1,6 @@
-#include <vector>
 #include <iostream>
-#include <utility>
-
 #include "GraphGenerator.h"
+#include "GraphNode.h"
 
 using namespace std;
 

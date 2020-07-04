@@ -1,9 +1,11 @@
 #include <string>
-#include "ServerCommand.h"
+#include <sstream>
 #include "pugixml.hpp"
 #include "SingleThreadGraphAlgorithms.h"
 #include "CppThreadsGraphAlgorithms.h"
 #include "GraphAlgorithms.h"
+#include "GraphGenerator.h"
+
 
 using namespace std;
 using namespace pugi;
@@ -26,6 +28,7 @@ void process_attribute(const char* name, const char* value, ServerCommand* sc)
 	else if(name_str == "numberOfNodes")
 	{
 		sc->number_of_nodes = stoi(value_str);
+		sc->result_report.node_results.resize(sc->number_of_nodes);
 	}
 	else if(name_str == "nodeTraverseTime")
 	{
@@ -83,7 +86,6 @@ ServerCommand* ServerCommand::create_from_xml(const string& buffer)
 
 void ServerCommand::execute_command()
 {
-	ResultReport::create_new_repport()->fill_from_server_command(this);
 	switch (this->algorithm)
 	{
 	case GraphAlgorithm::BFS_SINGLE:
@@ -102,6 +104,26 @@ void ServerCommand::execute_command()
 		break;
 	}
 
+}
+
+std::string ServerCommand::result_xml() const
+{
+	std::ostringstream xml_string;
+	xml_string << "<algorithm>" << graph_algorithm_to_string[(int)algorithm] << "</algorithm>";
+	xml_string << "<numberOfThreads>" << number_of_threads << "</numberOfThreads>";
+	xml_string << "<numberOfNodes>" << number_of_nodes << "</numberOfNodes>";
+	xml_string << "<nodeTraverseTime>" << node_traverse_time << "</nodeTraverseTime>";
+	xml_string << "<condVarWaitTime>" << cond_var_wait_time << "</condVarWaitTime>";
+	xml_string << "<rootKey>" << root_key << "</rootKey>";
+	xml_string << "<graphType>" << graph_type << "</graphType>";
+
+	xml_string << result_report.to_xml_string();
+	return xml_string.str();
+}
+
+void ServerCommand::create_graph()
+{
+	this->graph_root = GraphGenerator::generate_graph(node_keys, edges, root_key);
 }
 
 

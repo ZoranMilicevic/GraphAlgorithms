@@ -28,14 +28,14 @@
     <Filter Include="DataStructures\VisistedArray">
       <UniqueIdentifier>{db08d650-0d59-4b33-86a3-6eac3eb8a971}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ResultReporters">
-      <UniqueIdentifier>{ab9ef65a-4153-4765-ad33-048e50e80bea}</UniqueIdentifier>
-    </Filter>
     <Filter Include="XML Parser">
       <UniqueIdentifier>{375ba34f-4a67-4eb9-919f-16f4f7023dd1}</UniqueIdentifier>
     </Filter>
     <Filter Include="Server">
       <UniqueIdentifier>{7eb86345-91b5-4469-93eb-76236ca44b83}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="CommandsAndResults">
+      <UniqueIdentifier>{ab9ef65a-4153-4765-ad33-048e50e80bea}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -79,10 +79,10 @@
       <Filter>GraphGenerators</Filter>
     </ClInclude>
     <ClInclude Include="NodeResultReport.h">
-      <Filter>ResultReporters</Filter>
+      <Filter>CommandsAndResults</Filter>
     </ClInclude>
     <ClInclude Include="ResultReport.h">
-      <Filter>ResultReporters</Filter>
+      <Filter>CommandsAndResults</Filter>
     </ClInclude>
     <ClInclude Include="pugiconfig.hpp">
       <Filter>XML Parser</Filter>
@@ -93,11 +93,11 @@
     <ClInclude Include="GraphAlgorithms.h">
       <Filter>GraphAlgorithms</Filter>
     </ClInclude>
-    <ClInclude Include="ServerCommand.h">
-      <Filter>Server</Filter>
-    </ClInclude>
     <ClInclude Include="ServerStartUp.h">
       <Filter>Server</Filter>
+    </ClInclude>
+    <ClInclude Include="ServerCommand.h">
+      <Filter>CommandsAndResults</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -116,11 +116,14 @@
     <ClCompile Include="pugixml.cpp">
       <Filter>XML Parser</Filter>
     </ClCompile>
-    <ClCompile Include="ServerCommand.cpp">
-      <Filter>Server</Filter>
-    </ClCompile>
     <ClCompile Include="ResultReport.cpp">
-      <Filter>ResultReporters</Filter>
+      <Filter>CommandsAndResults</Filter>
+    </ClCompile>
+    <ClCompile Include="ServerCommand.cpp">
+      <Filter>CommandsAndResults</Filter>
+    </ClCompile>
+    <ClCompile Include="GraphNode.cpp">
+      <Filter>GraphGenerators</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

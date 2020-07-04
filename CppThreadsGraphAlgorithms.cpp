@@ -1,4 +1,5 @@
 #include "CppThreadsGraphAlgorithms.h"
+#include "ThreadPool.h"
 using namespace std;
 
 
@@ -17,26 +18,26 @@ void CppThreadsGraphAlgorithms::BFS(ServerCommand* command)
 {
 	VisitedArrayCppThreads* visited = new VisitedArrayCppThreads(command->number_of_nodes);
 	
-	ResultReport::get_cur_repport()->start_time = chrono::system_clock::now();
-	ThreadPool::getInstance(command->number_of_threads)->submit([=]()->void { CppThreadsGraphAlgorithms::bfs_traversal(command->graph_root, visited, command->node_traverse_time); });
+	command->result_report.start_time = chrono::system_clock::now();
+	ThreadPool::getInstance(command->number_of_threads)->submit([=]()->void { CppThreadsGraphAlgorithms::bfs_traversal(command->graph_root, visited, command); });
 	
 	ThreadPool::getInstance()->joinThreadsFromPool();
 	ThreadPool::destroy_pool();
 	delete visited;
 }
 
-void CppThreadsGraphAlgorithms::bfs_traversal(GraphNode* node, VisitedArrayCppThreads* visited, int traverse_time)
+void CppThreadsGraphAlgorithms::bfs_traversal(GraphNode* node, VisitedArrayCppThreads* visited, ServerCommand* command)
 {
 	if (!visited->test_and_set_visited(node->key))
 	{
-		node->traverseNode(traverse_time);
+		node->traverseNode(command);
 		visited->increase_visited();
 	}
 
 	if (visited->visited_all())
 	{
-		ResultReport::get_cur_repport()->end_time = chrono::system_clock::now();
-		ResultReport::get_cur_repport()->elapsed_time = ResultReport::get_cur_repport()->end_time - ResultReport::get_cur_repport()->start_time;
+		command->result_report.end_time = chrono::system_clock::now();
+		command->result_report.elapsed_time = command->result_report.end_time - command->result_report.start_time;
 		ThreadPool::getInstance()->stopThreads();
 		return;
 	}
@@ -45,7 +46,7 @@ void CppThreadsGraphAlgorithms::bfs_traversal(GraphNode* node, VisitedArrayCppTh
 	{
 		if (!visited->test_and_set_added(neighbour->key))
 		{
-			ThreadPool::getInstance()->submit([=]()->void { CppThreadsGraphAlgorithms::bfs_traversal(neighbour, visited, traverse_time); });
+			ThreadPool::getInstance()->submit([=]()->void { CppThreadsGraphAlgorithms::bfs_traversal(neighbour, visited, command); });
 		}
 	}
 

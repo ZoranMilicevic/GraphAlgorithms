@@ -43,6 +43,7 @@
   <ItemGroup>
     <ClCompile Include="CppThreadsGraphAlgorithms.cpp" />
     <ClCompile Include="GraphGenerator.cpp" />
+    <ClCompile Include="GraphNode.cpp" />
     <ClCompile Include="pugixml.cpp" />
     <ClCompile Include="ResultReport.cpp" />
     <ClCompile Include="ServerCommand.cpp" />

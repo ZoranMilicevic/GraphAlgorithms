@@ -3,8 +3,8 @@
 #include <map>
 #include <string>
 #include <utility>
+#include "ResultReport.h"
 #include "GraphNode.h"
-#include "GraphGenerator.h"
 
 enum class GraphAlgorithm;
 
@@ -19,13 +19,11 @@ public:
 		delete graph_root;
 	}
 
-
 	void execute_command();
 
-	void create_graph()
-	{
-		this->graph_root = GraphGenerator::generate_graph(node_keys, edges, root_key);
-	}
+	std::string result_xml()const;
+
+	void create_graph();
 
 	GraphAlgorithm algorithm;
 	int number_of_threads;
@@ -38,4 +36,6 @@ public:
 	std::vector<int> node_keys;
 	std::vector<std::pair<int, int>> edges;
 	GraphNode* graph_root;
+
+	ResultReport result_report;
 };

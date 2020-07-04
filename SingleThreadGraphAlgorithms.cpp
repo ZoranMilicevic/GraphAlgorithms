@@ -3,14 +3,15 @@
 #include "SingleThreadGraphAlgorithms.h"
 #include "DataQueueSingleThread.h"
 #include "DataStackSingleThread.h"
-
+#include "GraphNode.h"
+#include "VisitedArraySingleThread.h"
 
 using namespace std;
 
 
 void SingleThreadGraphAlgorithms::DFS(ServerCommand* command)
 {
-	ResultReport::get_cur_repport()->start_time = chrono::system_clock::now();
+	command->result_report.start_time = chrono::system_clock::now();
 	
 	DataStackSingleThread<GraphNode> stack;
 	VisitedArraySingleThread visited(command->number_of_nodes);
@@ -23,7 +24,7 @@ void SingleThreadGraphAlgorithms::DFS(ServerCommand* command)
 
 		if (!visited.test_and_set_visited(curNode->key))
 		{
-			curNode->traverseNode(command->node_traverse_time);
+			curNode->traverseNode(command);
 			if (visited.increment_visited())
 				break;
 		}
@@ -34,13 +35,13 @@ void SingleThreadGraphAlgorithms::DFS(ServerCommand* command)
 		}
 	}
 
-	ResultReport::get_cur_repport()->end_time = chrono::system_clock::now();
-	ResultReport::get_cur_repport()->elapsed_time = ResultReport::get_cur_repport()->end_time - ResultReport::get_cur_repport()->start_time;
+	command->result_report.end_time = chrono::system_clock::now();
+	command->result_report.elapsed_time = command->result_report.end_time - command->result_report.start_time;
 }
 
 void SingleThreadGraphAlgorithms::BFS(ServerCommand* command)
 {
-	ResultReport::get_cur_repport()->start_time = chrono::system_clock::now();
+	command->result_report.start_time = chrono::system_clock::now();
 
 	DataQueueSingleThread<GraphNode> queue;
 	VisitedArraySingleThread visited(command->number_of_nodes);
@@ -53,7 +54,7 @@ void SingleThreadGraphAlgorithms::BFS(ServerCommand* command)
 
 		if (!visited.test_and_set_visited(curNode->key))
 		{
-			curNode->traverseNode(command->node_traverse_time);
+			curNode->traverseNode(command);
 			if (visited.increment_visited())
 				break;
 		}
@@ -64,6 +65,6 @@ void SingleThreadGraphAlgorithms::BFS(ServerCommand* command)
 		}
 	}
 
-	ResultReport::get_cur_repport()->end_time = chrono::system_clock::now();
-	ResultReport::get_cur_repport()->elapsed_time = ResultReport::get_cur_repport()->end_time - ResultReport::get_cur_repport()->start_time;
+	command->result_report.end_time = chrono::system_clock::now();
+	command->result_report.elapsed_time = command->result_report.end_time - command->result_report.start_time;
 }

@@ -1,7 +1,5 @@
 #pragma once
 
-#include "GraphNode.h"
-#include "VisitedArraySingleThread.h"
 #include "ServerCommand.h"
 
 class SingleThreadGraphAlgorithms

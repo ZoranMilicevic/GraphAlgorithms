@@ -119,11 +119,12 @@ void listen_on_client_socket(SOCKET client_socket, string host, string service)
 		}
 		else 
 		{
-			//echo message back to client
 			ServerCommand* sc = ServerCommand::create_from_xml(received_string);
 			sc->execute_command();
-			string xml_string = ResultReport::get_cur_repport()->to_xml_string();
-			send(client_socket, xml_string.c_str(), xml_string.size(), 0);
+
+			string xml_string = sc->result_xml();
+			send(client_socket, xml_string.c_str(), (int)xml_string.size(), 0);
+			
 			delete sc;
 		}
 	}

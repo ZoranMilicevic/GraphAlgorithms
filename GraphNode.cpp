@@ -1,7 +1,7 @@
 #include "GraphNode.h"
 #include "ServerCommand.h"
 
-void GraphNode::traverseNode(ServerCommand* command)
+void GraphNode::traverseNode(const std::shared_ptr<ServerCommand>& command)
 {
 	command->result_report.add_node_result_report(NodeResultReport(key, std::this_thread::get_id(), std::chrono::system_clock::now()));
 

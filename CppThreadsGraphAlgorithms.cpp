@@ -3,18 +3,18 @@
 using namespace std;
 
 
-void CppThreadsGraphAlgorithms::DFS(ServerCommand* command)
+void CppThreadsGraphAlgorithms::DFS(const std::shared_ptr<ServerCommand>&)
 {
 
 
 }
 
-void CppThreadsGraphAlgorithms::dfs_traversal(GraphNode* node, VisitedArrayCppThreads* visited)
+void CppThreadsGraphAlgorithms::dfs_traversal(const shared_ptr<GraphNode>& node, VisitedArrayCppThreads* visited)
 {
 
 }
 
-void CppThreadsGraphAlgorithms::BFS(ServerCommand* command)
+void CppThreadsGraphAlgorithms::BFS(const std::shared_ptr<ServerCommand>& command)
 {
 	VisitedArrayCppThreads* visited = new VisitedArrayCppThreads(command->number_of_nodes);
 	
@@ -26,7 +26,7 @@ void CppThreadsGraphAlgorithms::BFS(ServerCommand* command)
 	delete visited;
 }
 
-void CppThreadsGraphAlgorithms::bfs_traversal(GraphNode* node, VisitedArrayCppThreads* visited, ServerCommand* command)
+void CppThreadsGraphAlgorithms::bfs_traversal(const shared_ptr<GraphNode>& node, VisitedArrayCppThreads* visited, const std::shared_ptr<ServerCommand>& command)
 {
 	if (!visited->test_and_set_visited(node->key))
 	{
@@ -42,7 +42,7 @@ void CppThreadsGraphAlgorithms::bfs_traversal(GraphNode* node, VisitedArrayCppTh
 		return;
 	}
 
-	for(GraphNode* neighbour : node->neighbours)
+	for(std::shared_ptr<GraphNode> neighbour : node->neighbours)
 	{
 		if (!visited->test_and_set_added(neighbour->key))
 		{

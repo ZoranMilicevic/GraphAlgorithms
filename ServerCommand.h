@@ -3,6 +3,7 @@
 #include <map>
 #include <string>
 #include <utility>
+#include <memory>
 #include "ResultReport.h"
 #include "GraphNode.h"
 
@@ -11,13 +12,10 @@ enum class GraphAlgorithm;
 class ServerCommand
 {
 public:
-	static ServerCommand* create_from_xml(const std::string& buffer);
+	static std::shared_ptr<ServerCommand> create_from_xml(const std::string& buffer);
 
 	ServerCommand() {};
-	~ServerCommand()
-	{
-		delete graph_root;
-	}
+	~ServerCommand(){}
 
 	void execute_command();
 
@@ -35,7 +33,7 @@ public:
 
 	std::vector<int> node_keys;
 	std::vector<std::pair<int, int>> edges;
-	GraphNode* graph_root;
+	std::shared_ptr<GraphNode> graph_root;
 
 	ResultReport result_report;
 };

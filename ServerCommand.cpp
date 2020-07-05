@@ -11,7 +11,7 @@ using namespace std;
 using namespace pugi;
 
 
-void process_attribute(const char* name, const char* value, ServerCommand* sc)
+void process_attribute(const char* name, const char* value, const shared_ptr<ServerCommand>& sc)
 {
 	static const string delimiter = "<->";
 	string name_str(name);
@@ -49,10 +49,10 @@ void process_attribute(const char* name, const char* value, ServerCommand* sc)
 }
 
 
-ServerCommand* ServerCommand::create_from_xml(const string& buffer)
+shared_ptr<ServerCommand> ServerCommand::create_from_xml(const string& buffer)
 {
 	xml_document doc;
-	ServerCommand* sc = new ServerCommand();
+	shared_ptr<ServerCommand> sc = make_shared<ServerCommand>();
 
 	xml_parse_result res = doc.load_string((const pugi::char_t*)buffer.c_str());
 	pugi::xml_node params = doc.child("serverCommand").child("params");
@@ -86,19 +86,20 @@ ServerCommand* ServerCommand::create_from_xml(const string& buffer)
 
 void ServerCommand::execute_command()
 {
+	shared_ptr<ServerCommand> sh_sc(this);
 	switch (this->algorithm)
 	{
 	case GraphAlgorithm::BFS_SINGLE:
-		SingleThreadGraphAlgorithms::BFS(this);
+		SingleThreadGraphAlgorithms::BFS(sh_sc);
 		break;
 	case GraphAlgorithm::DFS_SINGLE:
-		SingleThreadGraphAlgorithms::DFS(this);
+		SingleThreadGraphAlgorithms::DFS(sh_sc);
 		break;
 	case GraphAlgorithm::BFS_CPP:
-		CppThreadsGraphAlgorithms::BFS(this);
+		CppThreadsGraphAlgorithms::BFS(sh_sc);
 		break;
 	case GraphAlgorithm::DFS_CPP:
-		CppThreadsGraphAlgorithms::DFS(this);
+		CppThreadsGraphAlgorithms::DFS(sh_sc);
 		break;
 	default:
 		break;

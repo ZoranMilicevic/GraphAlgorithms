@@ -1,4 +1,5 @@
 #include <vector>
+#include <memory>
 #include <chrono>
 #include "SingleThreadGraphAlgorithms.h"
 #include "DataQueueSingleThread.h"
@@ -9,7 +10,7 @@
 using namespace std;
 
 
-void SingleThreadGraphAlgorithms::DFS(ServerCommand* command)
+void SingleThreadGraphAlgorithms::DFS(const std::shared_ptr<ServerCommand>& command)
 {
 	command->result_report.start_time = chrono::system_clock::now();
 	
@@ -39,7 +40,7 @@ void SingleThreadGraphAlgorithms::DFS(ServerCommand* command)
 	command->result_report.elapsed_time = command->result_report.end_time - command->result_report.start_time;
 }
 
-void SingleThreadGraphAlgorithms::BFS(ServerCommand* command)
+void SingleThreadGraphAlgorithms::BFS(const std::shared_ptr<ServerCommand>& command)
 {
 	command->result_report.start_time = chrono::system_clock::now();
 

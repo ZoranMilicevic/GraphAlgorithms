@@ -1,20 +1,19 @@
-#include <iostream>
 #include "GraphGenerator.h"
 #include "GraphNode.h"
 
 using namespace std;
 
-GraphNode* GraphGenerator::generate_graph(
+shared_ptr<GraphNode> GraphGenerator::generate_graph(
 	std::vector<int> node_keys, 
 	std::vector<std::pair<int, int>> edges, 
 	int root_key
 )
 {
-	vector<GraphNode*> nodes;
+	vector<shared_ptr<GraphNode>> nodes;
 
 	for(int key : node_keys)
 	{
-		nodes.push_back(new GraphNode(key));
+		nodes.push_back(make_shared<GraphNode>(key));
 	}
 
 	for(auto&& edge: edges)

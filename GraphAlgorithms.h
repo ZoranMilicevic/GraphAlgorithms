@@ -6,25 +6,25 @@
 
 enum class GraphAlgorithm
 {
-	BFS_SINGLE,
-	DFS_SINGLE,
-	BFS_CPP,
-	DFS_CPP
+	BFS_ST,
+	DFS_ST,
+	BFS_MT,
+	DFS_MT
 
 };
 
-inline static const std::map<std::string, GraphAlgorithm>string_to_graph_algorithm =
+inline static const std::map<std::string, GraphAlgorithm> string_to_graph_algorithm =
 {
-	{"bfsSingle", GraphAlgorithm::BFS_SINGLE},
-	{"dfsSingle", GraphAlgorithm::DFS_SINGLE},
-	{"bfsCpp", GraphAlgorithm::BFS_CPP},
-	{"dfsCpp", GraphAlgorithm::DFS_CPP}
+	{"BFS_ST", GraphAlgorithm::BFS_ST},
+	{"DFS_ST", GraphAlgorithm::DFS_ST},
+	{"BFS_MT", GraphAlgorithm::BFS_MT},
+	{"DFS_MT", GraphAlgorithm::DFS_MT}
 };
 
 inline static const std::vector<std::string> graph_algorithm_to_string =
 {
-	"BFS SINGLE",
-	"DFS_SINGLE",
-	"BFS_CPP",
-	"DFS_CPP"
+	"BFS_ST",
+	"DFS_ST",
+	"BFS_MT",
+	"DFS_MT"
 };

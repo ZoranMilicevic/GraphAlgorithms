@@ -9,7 +9,7 @@
 
 enum class GraphAlgorithm;
 
-class ServerCommand
+class ServerCommand : public std::enable_shared_from_this<ServerCommand>
 {
 public:
 	static std::shared_ptr<ServerCommand> create_from_xml(const std::string& buffer);

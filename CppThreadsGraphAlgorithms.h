@@ -9,10 +9,10 @@
 class CppThreadsGraphAlgorithms{
 public:
 	static void DFS(const std::shared_ptr<ServerCommand>& command);
-	static void dfs_traversal(const std::shared_ptr<GraphNode>& node, VisitedArrayCppThreads* visited);
+	static void dfs_traversal(const std::shared_ptr<GraphNode>& node, std::shared_ptr<VisitedArrayCppThreads> visited, const std::shared_ptr<ServerCommand>& command);
 	
 	static void BFS(const std::shared_ptr<ServerCommand>& command);
-	static void bfs_traversal(const std::shared_ptr<GraphNode>& node, VisitedArrayCppThreads* visited, const std::shared_ptr<ServerCommand>& sc);
+	static void bfs_traversal(const std::shared_ptr<GraphNode>& node, std::shared_ptr<VisitedArrayCppThreads> visited, const std::shared_ptr<ServerCommand>& sc);
 };
 
 

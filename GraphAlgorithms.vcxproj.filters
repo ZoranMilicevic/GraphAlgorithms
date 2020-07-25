@@ -4,14 +4,8 @@
     <Filter Include="GraphAlgorithms">
       <UniqueIdentifier>{1142b7fe-6cf9-4a84-bdf6-cd80f6eea068}</UniqueIdentifier>
     </Filter>
-    <Filter Include="GraphAlgorithms\SingleThread">
-      <UniqueIdentifier>{170ed9a7-c66c-4269-ba78-3e4479d7efd0}</UniqueIdentifier>
-    </Filter>
     <Filter Include="GraphGenerators">
       <UniqueIdentifier>{a3a15a59-9f68-429b-aafa-c99da898925b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="GraphAlgorithms\CppThreads">
-      <UniqueIdentifier>{7a590915-d8e3-4cea-a1ee-f699024aa394}</UniqueIdentifier>
     </Filter>
     <Filter Include="DataStructures">
       <UniqueIdentifier>{a8d531a5-0cdc-4738-89f0-e1d2aed9c530}</UniqueIdentifier>
@@ -34,19 +28,22 @@
     <Filter Include="Server">
       <UniqueIdentifier>{7eb86345-91b5-4469-93eb-76236ca44b83}</UniqueIdentifier>
     </Filter>
-    <Filter Include="CommandsAndResults">
+    <Filter Include="GraphAlgorithms\DFS">
+      <UniqueIdentifier>{b2cfc597-9249-489e-9c6d-de3a69c028ef}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GraphAlgorithms\BFS">
+      <UniqueIdentifier>{5e3cb1e1-7796-4163-9bdb-0b2edae4107e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Results">
       <UniqueIdentifier>{ab9ef65a-4153-4765-ad33-048e50e80bea}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ServerCommand">
+      <UniqueIdentifier>{56c49243-84c7-42e2-aced-9970f832e492}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="SingleThreadGraphAlgorithms.h">
-      <Filter>GraphAlgorithms\SingleThread</Filter>
-    </ClInclude>
     <ClInclude Include="GraphGenerator.h">
       <Filter>GraphGenerators</Filter>
-    </ClInclude>
-    <ClInclude Include="CppThreadsGraphAlgorithms.h">
-      <Filter>GraphAlgorithms\CppThreads</Filter>
     </ClInclude>
     <ClInclude Include="ThreadPool.h">
       <Filter>DataStructures\ThreadPool</Filter>
@@ -79,10 +76,10 @@
       <Filter>GraphGenerators</Filter>
     </ClInclude>
     <ClInclude Include="NodeResultReport.h">
-      <Filter>CommandsAndResults</Filter>
+      <Filter>Results</Filter>
     </ClInclude>
     <ClInclude Include="ResultReport.h">
-      <Filter>CommandsAndResults</Filter>
+      <Filter>Results</Filter>
     </ClInclude>
     <ClInclude Include="pugiconfig.hpp">
       <Filter>XML Parser</Filter>
@@ -96,19 +93,19 @@
     <ClInclude Include="ServerStartUp.h">
       <Filter>Server</Filter>
     </ClInclude>
+    <ClInclude Include="DFS.h">
+      <Filter>GraphAlgorithms\DFS</Filter>
+    </ClInclude>
+    <ClInclude Include="BFS.h">
+      <Filter>GraphAlgorithms\BFS</Filter>
+    </ClInclude>
     <ClInclude Include="ServerCommand.h">
-      <Filter>CommandsAndResults</Filter>
+      <Filter>ServerCommand</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="SingleThreadGraphAlgorithms.cpp">
-      <Filter>GraphAlgorithms\SingleThread</Filter>
-    </ClCompile>
     <ClCompile Include="GraphGenerator.cpp">
       <Filter>GraphGenerators</Filter>
-    </ClCompile>
-    <ClCompile Include="CppThreadsGraphAlgorithms.cpp">
-      <Filter>GraphAlgorithms\CppThreads</Filter>
     </ClCompile>
     <ClCompile Include="ServerStartUp.cpp">
       <Filter>Server</Filter>
@@ -117,13 +114,19 @@
       <Filter>XML Parser</Filter>
     </ClCompile>
     <ClCompile Include="ResultReport.cpp">
-      <Filter>CommandsAndResults</Filter>
-    </ClCompile>
-    <ClCompile Include="ServerCommand.cpp">
-      <Filter>CommandsAndResults</Filter>
+      <Filter>Results</Filter>
     </ClCompile>
     <ClCompile Include="GraphNode.cpp">
       <Filter>GraphGenerators</Filter>
+    </ClCompile>
+    <ClCompile Include="DFS.cpp">
+      <Filter>GraphAlgorithms\DFS</Filter>
+    </ClCompile>
+    <ClCompile Include="BFS.cpp">
+      <Filter>GraphAlgorithms\BFS</Filter>
+    </ClCompile>
+    <ClCompile Include="ServerCommand.cpp">
+      <Filter>ServerCommand</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

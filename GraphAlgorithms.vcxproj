@@ -19,10 +19,11 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="CppThreadsGraphAlgorithms.h" />
+    <ClInclude Include="BFS.h" />
     <ClInclude Include="DataNode.h" />
     <ClInclude Include="DataQueueSingleThread.h" />
     <ClInclude Include="DataStackSingleThread.h" />
+    <ClInclude Include="DFS.h" />
     <ClInclude Include="GraphAlgorithms.h" />
     <ClInclude Include="GraphGenerator.h" />
     <ClInclude Include="JoinThreads.h" />
@@ -33,7 +34,6 @@
     <ClInclude Include="ResultReport.h" />
     <ClInclude Include="ServerCommand.h" />
     <ClInclude Include="ServerStartUp.h" />
-    <ClInclude Include="SingleThreadGraphAlgorithms.h" />
     <ClInclude Include="ThreadPool.h" />
     <ClInclude Include="DataQueueCppThreads.h" />
     <ClInclude Include="DataStackCppThreads.h" />
@@ -41,14 +41,14 @@
     <ClInclude Include="VisitedArrayCppThreads.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="CppThreadsGraphAlgorithms.cpp" />
+    <ClCompile Include="BFS.cpp" />
+    <ClCompile Include="DFS.cpp" />
     <ClCompile Include="GraphGenerator.cpp" />
     <ClCompile Include="GraphNode.cpp" />
     <ClCompile Include="pugixml.cpp" />
     <ClCompile Include="ResultReport.cpp" />
     <ClCompile Include="ServerCommand.cpp" />
     <ClCompile Include="ServerStartUp.cpp" />
-    <ClCompile Include="SingleThreadGraphAlgorithms.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>

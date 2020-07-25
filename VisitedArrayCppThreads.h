@@ -2,6 +2,7 @@
 
 #include <atomic>
 #include <shared_mutex>
+#include <memory>
 
 enum NodeState
 {
@@ -19,11 +20,7 @@ public:
 		visited(new NodeState[number_of_nodes]()),
 		number_of_visited(0){}
 
-	virtual ~VisitedArrayCppThreads() 
-	{
-		delete visited;
-		//delete sh_mutex_array;
-	}
+	virtual ~VisitedArrayCppThreads() {}
 
 	virtual bool test_and_set_visited(int node_id)
 	{
@@ -73,8 +70,8 @@ public:
 	}
 
 protected:
-	mutable std::shared_mutex* sh_mutex_array;
+	mutable std::shared_ptr<std::shared_mutex[]> sh_mutex_array;
 	const int number_of_nodes;
-	NodeState* visited;
+	std::shared_ptr<NodeState[]> visited;
 	std::atomic<int> number_of_visited;
 };

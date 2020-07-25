@@ -1,5 +1,7 @@
 #pragma once
 
+#include <memory>
+
 class VisitedArraySingleThread
 {
 public:
@@ -7,10 +9,7 @@ public:
 		:number_of_nodes(number_of_nodes), 
 		visited(new bool[number_of_nodes]()),
 		number_of_visited(0) {}
-	virtual ~VisitedArraySingleThread() 
-	{
-		delete visited;
-	}
+	virtual ~VisitedArraySingleThread() {}
 
 	virtual bool test_and_set_visited(int node_id)
 	{
@@ -32,7 +31,6 @@ public:
 
 protected:
 	const int number_of_nodes;
-	bool* visited;
+	std::shared_ptr<bool[]> visited;
 	int number_of_visited;
-
 };

@@ -1,8 +1,8 @@
 #include <string>
 #include <sstream>
 #include "pugixml.hpp"
-#include "SingleThreadGraphAlgorithms.h"
-#include "CppThreadsGraphAlgorithms.h"
+#include "DFS.h"
+#include "BFS.h"
 #include "GraphAlgorithms.h"
 #include "GraphGenerator.h"
 
@@ -86,20 +86,19 @@ shared_ptr<ServerCommand> ServerCommand::create_from_xml(const string& buffer)
 
 void ServerCommand::execute_command()
 {
-	shared_ptr<ServerCommand> sh_sc(this);
 	switch (this->algorithm)
 	{
-	case GraphAlgorithm::BFS_SINGLE:
-		SingleThreadGraphAlgorithms::BFS(sh_sc);
+	case GraphAlgorithm::BFS_ST:
+		BFS::BFS_ST(shared_from_this());
 		break;
-	case GraphAlgorithm::DFS_SINGLE:
-		SingleThreadGraphAlgorithms::DFS(sh_sc);
+	case GraphAlgorithm::DFS_ST:
+		DFS::DFS_ST(shared_from_this());
 		break;
-	case GraphAlgorithm::BFS_CPP:
-		CppThreadsGraphAlgorithms::BFS(sh_sc);
+	case GraphAlgorithm::BFS_MT:
+		BFS::BFS_MT(shared_from_this());
 		break;
-	case GraphAlgorithm::DFS_CPP:
-		CppThreadsGraphAlgorithms::DFS(sh_sc);
+	case GraphAlgorithm::DFS_MT:
+		DFS::DFS_MT(shared_from_this());
 		break;
 	default:
 		break;

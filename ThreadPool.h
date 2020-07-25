@@ -69,6 +69,7 @@ public:
     static void destroy_pool()
     {
         delete pool;
+        pool = nullptr;
     }
 
 

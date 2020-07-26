@@ -20,7 +20,7 @@ void BFS::BFS_ST(const std::shared_ptr<ServerCommand>& command)
 
 	while (!queue.empty())
 	{
-		GraphNode* curNode = queue.pop();
+		std::shared_ptr<GraphNode> curNode = queue.pop();
 
 		if (!visited.test_and_set_visited(curNode->key))
 		{

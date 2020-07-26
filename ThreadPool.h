@@ -20,11 +20,13 @@ class ThreadPool
     {
         while (!done)
         {
-            std::function<void()>* task = work_queue.try_pop();
-            if (task != NULL)
+            
+            auto task = work_queue.try_pop();
+            if (task != nullptr)
                 (*task)();
             else
                 std::this_thread::yield();
+                
         }
     }
 

@@ -7,36 +7,33 @@ class DataQueueSingleThread
 {
 public:
 	DataQueueSingleThread() :head(nullptr), tail(nullptr) {};
-	DataQueueSingleThread(T* head) :head(head), tail(head) {};
-	DataQueueSingleThread(T* head, T* tail) : head(head), tail(tail) {};
-	virtual ~DataQueueSingleThread() 
-	{
-		delete head;
-	}
+	virtual ~DataQueueSingleThread() {}
 
 	virtual void push(const T& new_elem)
 	{
-		T* new_data = new T(std::move(new_elem));
-		DataNode<T>* new_node = new DataNode<T>();
-		new_node->data = new_data;
-		new_node->next = nullptr;
+		std::unique_ptr<DataNode<T>> new_node(new DataNode<T>());
+		new_node->data = std::make_shared<T>(std::move(new_elem));
 
-		if (tail == nullptr)
-			head = tail = new_node;
+		if (tail == nullptr) 
+		{
+			tail = new_node.get();
+			head = std::move(new_node);
+		}
 		else 
 		{
-			tail->next = new_node;
-			tail = new_node;
+			DataNode<T>* new_tail = new_node.get();
+			tail->next = std::move(new_node);
+			tail = new_tail;
 		}
 	};
 
-	virtual T* pop()
+	virtual std::shared_ptr<T> pop()
 	{
 		if (empty())
 			return nullptr;
 
-		DataNode<T>* old_head = head;
-		head = head->next;
+		std::unique_ptr<DataNode<T>> old_head = std::move(head);
+		head = std::move(old_head->next);
 
 		if (head == nullptr) tail = nullptr;
 
@@ -49,6 +46,6 @@ public:
 	};
 
 protected:
-	DataNode<T>* head;
-	DataNode<T>* tail;
+	std::unique_ptr<DataNode<T>> head;
+	DataNode<T> *tail;
 };

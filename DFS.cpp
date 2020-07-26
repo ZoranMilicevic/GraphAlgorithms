@@ -19,7 +19,7 @@ void DFS::DFS_ST(const std::shared_ptr<ServerCommand>& command)
 
 	while (!stack.empty())
 	{
-		GraphNode* curNode = stack.pop();
+		std::shared_ptr<GraphNode> curNode = stack.pop();
 
 		if (!visited.test_and_set_visited(curNode->key))
 		{

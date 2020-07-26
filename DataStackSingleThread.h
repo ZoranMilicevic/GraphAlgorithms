@@ -1,5 +1,6 @@
 #pragma once
 
+#include <memory>
 #include "DataNode.h"
 
 template <class T>
@@ -7,26 +8,24 @@ class DataStackSingleThread
 {
 public:
 	DataStackSingleThread() :head(nullptr) {}
-	DataStackSingleThread(DataNode<T>* head) :head(head) {}
 	virtual ~DataStackSingleThread() {}
 
 	virtual void push(const T& new_elem)
 	{
-		T* new_data = new T(std::move(new_elem));
-		DataNode<T>* new_node = new DataNode<T>();
-		new_node->data = new_data;
+		std::unique_ptr<DataNode<T>> new_node(new DataNode<T>());
+		new_node->data = std::make_shared<T>(std::move(new_elem));
 
-		new_node->next = head;
-		head = new_node;
+		new_node->next = std::move(head);
+		head = std::move(new_node);
 	}
 
-	virtual T* pop()
+	virtual std::shared_ptr<T> pop()
 	{
 		if (empty())
 			return nullptr;
 
-		DataNode<T>* old_head = head;
-		head = head->next;
+		std::unique_ptr<DataNode<T>> old_head = std::move(head);
+		head = std::move(old_head->next);
 
 		return old_head->data;
 	}
@@ -37,5 +36,5 @@ public:
 	}
 
 protected:
-	DataNode<T>* head;
+	std::unique_ptr<DataNode<T>> head;
 };

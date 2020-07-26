@@ -12,36 +12,34 @@ template<class T>
 class DataQueueCppThreads
 {
 public:
-	DataQueueCppThreads(): head(new DataNode<T>()), tail(head), head_mutex(), tail_mutex(), cond_var(){};
+	DataQueueCppThreads(): head(new DataNode<T>()), tail(head.get()), head_mutex(), tail_mutex(), cond_var(){};
 	DataQueueCppThreads& operator=(const DataQueueCppThreads&) = delete;
-	virtual ~DataQueueCppThreads() 
-	{
-		delete head;
-	}
+	virtual ~DataQueueCppThreads() {}
 
 	virtual void push(const T& new_elem)
 	{
-		T* new_data = new T(std::move(new_elem));
-		DataNode<T>* new_node = new DataNode<T>();
+		std::unique_ptr<DataNode<T>> new_node(new DataNode<T>());
+		std::shared_ptr<T> new_data = std::make_shared<T>(std::move(new_elem));
+		DataNode<T>* new_tail = new_node.get();
 
 		tail_mutex.lock();
 
 		tail->data = new_data; //!!!WRITING THE NEW VALUE INTO THE DUMMY NODE
-		tail->next = new_node;
-		tail = new_node;
+		tail->next = std::move(new_node);
+		tail = new_tail;
 
 		tail_mutex.unlock();
 		//cond_var.notify_all();
 	}
 
 	//todo fix pop
-	virtual T* pop()
+	virtual std::shared_ptr<T> pop()
 	{
 		std::unique_lock<std::mutex> head_lock(head_mutex);
-		cond_var.wait(head_lock, [&] { return head != get_tail(); });
+		cond_var.wait(head_lock, [&] { return head.get() != get_tail(); });
 
-		DataNode<T>* old_head = head;
-		head = head->next;
+		std::shared_ptr<DataNode<T>> old_head = std::move(head);
+		head = std::move(old_head->next);
 
 		if(head_lock.owns_lock())
 			head_lock.unlock();
@@ -49,15 +47,15 @@ public:
 		return old_head->data;
 	}
 
-	virtual T* try_pop()
+	virtual std::shared_ptr<T> try_pop()
 	{
 		std::lock_guard<std::mutex> head_lock(head_mutex);
 
-		if (head == get_tail())
-			return NULL;
+		if (head.get() == get_tail())
+			return nullptr;
 
-		DataNode<T>* old_head = head;
-		head = head->next;
+		std::shared_ptr<DataNode<T>> old_head = std::move(head);
+		head = std::move(old_head->next);
 		
 		return old_head->data;
 	}
@@ -69,7 +67,7 @@ protected:
 		return tail;
 	}
 
-	DataNode<T>* head;
+	std::unique_ptr<DataNode<T>> head;
 	DataNode<T>* tail;
 
 	mutable std::mutex head_mutex;

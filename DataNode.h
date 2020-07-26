@@ -1,20 +1,18 @@
 #pragma once
 
+#include <memory>
+
 template <typename T>
 class DataNode
 {
 public:
-	T* data;
-	DataNode* next;
+	std::shared_ptr<T> data;
+	std::unique_ptr<DataNode> next;
 	DataNode() 
 	{
-		data = NULL;
-		next = NULL;
+		data = nullptr;
+		next = nullptr;
 	};
-	~DataNode() 
-	{
-		delete data;
-		delete next;
-	};
+	~DataNode() {};
 };
 

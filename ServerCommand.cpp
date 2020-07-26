@@ -46,8 +46,15 @@ void process_attribute(const char* name, const char* value, const shared_ptr<Ser
 	{
 		sc->graph_type = value_str;
 	}
+	else if (name_str == "polling_param") 
+	{
+		sc->polling_param = stoi(value_str);
+	}
+	else if(name_str == "sufficiency_param")
+	{
+		sc->sufficiency_param = stoi(value_str);
+	}
 }
-
 
 shared_ptr<ServerCommand> ServerCommand::create_from_xml(const string& buffer)
 {

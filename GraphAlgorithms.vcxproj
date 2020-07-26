@@ -24,6 +24,7 @@
     <ClInclude Include="DataQueueSingleThread.h" />
     <ClInclude Include="DataStackSingleThread.h" />
     <ClInclude Include="DFS.h" />
+    <ClInclude Include="DFS_MT_Util.h" />
     <ClInclude Include="GraphAlgorithms.h" />
     <ClInclude Include="GraphGenerator.h" />
     <ClInclude Include="JoinThreads.h" />
@@ -34,6 +35,7 @@
     <ClInclude Include="ResultReport.h" />
     <ClInclude Include="ServerCommand.h" />
     <ClInclude Include="ServerStartUp.h" />
+    <ClInclude Include="StackWithSplit.h" />
     <ClInclude Include="ThreadPool.h" />
     <ClInclude Include="DataQueueCppThreads.h" />
     <ClInclude Include="DataStackCppThreads.h" />
@@ -174,7 +176,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <LanguageStandard>stdcpp17</LanguageStandard>
+      <LanguageStandard>stdcpplatest</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>

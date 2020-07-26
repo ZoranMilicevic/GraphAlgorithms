@@ -9,7 +9,7 @@
 
 using namespace std;
 
-void BFS::BFS_ST(const std::shared_ptr<ServerCommand>& command)
+void BFS::BFS_ST(const shared_ptr<ServerCommand>& command)
 {
 	command->result_report.start_time = chrono::system_clock::now();
 
@@ -41,7 +41,7 @@ void BFS::BFS_ST(const std::shared_ptr<ServerCommand>& command)
 
 
 
-void BFS::BFS_MT(const std::shared_ptr<ServerCommand>& command)
+void BFS::BFS_MT(const shared_ptr<ServerCommand>& command)
 {
 	shared_ptr<VisitedArrayCppThreads> visited(new VisitedArrayCppThreads(command->number_of_nodes));
 
@@ -54,7 +54,7 @@ void BFS::BFS_MT(const std::shared_ptr<ServerCommand>& command)
 	ThreadPool::destroy_pool();
 }
 
-void BFS::BFS_MT_traversal(const shared_ptr<GraphNode>& node, std::shared_ptr<VisitedArrayCppThreads> visited, const std::shared_ptr<ServerCommand>& command)
+void BFS::BFS_MT_traversal(const shared_ptr<GraphNode>& node, shared_ptr<VisitedArrayCppThreads> visited, const shared_ptr<ServerCommand>& command)
 {
 	if (!visited->test_and_set_visited(node->key))
 	{
@@ -70,7 +70,7 @@ void BFS::BFS_MT_traversal(const shared_ptr<GraphNode>& node, std::shared_ptr<Vi
 		return;
 	}
 
-	for (std::shared_ptr<GraphNode> neighbour : node->neighbours)
+	for (shared_ptr<GraphNode> neighbour : node->neighbours)
 	{
 		if (!visited->test_and_set_added(neighbour->key))
 		{

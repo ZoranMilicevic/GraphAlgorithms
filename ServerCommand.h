@@ -30,6 +30,8 @@ public:
 	int cond_var_wait_time;
 	int root_key;
 	std::string graph_type;
+	int polling_param;
+	int sufficiency_param;
 
 	std::vector<int> node_keys;
 	std::vector<std::pair<int, int>> edges;

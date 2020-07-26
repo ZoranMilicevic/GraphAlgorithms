@@ -40,6 +40,9 @@
     <Filter Include="ServerCommand">
       <UniqueIdentifier>{56c49243-84c7-42e2-aced-9970f832e492}</UniqueIdentifier>
     </Filter>
+    <Filter Include="DataStructures\StackWithSplit">
+      <UniqueIdentifier>{7c98cb89-35d9-494b-a9f6-0c899e0dcb6f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GraphGenerator.h">
@@ -101,6 +104,12 @@
     </ClInclude>
     <ClInclude Include="ServerCommand.h">
       <Filter>ServerCommand</Filter>
+    </ClInclude>
+    <ClInclude Include="DFS_MT_Util.h">
+      <Filter>GraphAlgorithms\DFS</Filter>
+    </ClInclude>
+    <ClInclude Include="StackWithSplit.h">
+      <Filter>DataStructures\StackWithSplit</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

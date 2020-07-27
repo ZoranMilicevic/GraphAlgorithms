@@ -50,7 +50,6 @@ void DFS::DFS_MT(const std::shared_ptr<ServerCommand>& command)
 	//create initial node stacks for threads
 	for(int i = 0; i < command->number_of_threads; i++)
 		vector_of_starting_stacks.push_back(make_shared<StackWithSplit<GraphNode>>());
-
 	vector_of_starting_stacks[0]->push(*command->graph_root);
 
 	command->result_report.start_time = chrono::system_clock::now();
@@ -75,7 +74,7 @@ void DFS::DFS_MT_traversal(shared_ptr<StackWithSplit<GraphNode>> stack, shared_p
 	shared_ptr<mutex> ssr_mutex = make_shared<mutex>();
 	shared_ptr<condition_variable> ssr_cond_var = make_shared<condition_variable>();
 
-	while(!visited->visited_all())
+	while(true)
 	{
 		if(!stack->empty())
 		{
@@ -86,11 +85,22 @@ void DFS::DFS_MT_traversal(shared_ptr<StackWithSplit<GraphNode>> stack, shared_p
 				curNode->traverseNode(command);
 				visited->increase_visited();
 				nodes_visited_since_last_split++;
+
+				if (!visited->added_all()) {
+					for (auto&& neighbour : curNode->neighbours)
+					{
+						if (!visited->test_and_set_added(neighbour->key))
+						{
+							stack->push(*neighbour);
+							visited->increase_added();
+						}
+					}
+				}
 			}
 
 			if(visited->visited_all())
 			{
-				if(!util_struct->end_timer_set.test_and_set())
+				if(!visited->test_and_set_end_time_writen())
 					command->result_report.end_time = chrono::system_clock::now();
 				
 				std::shared_ptr<StackSplitRequest> req = util_struct->stack_split_req_queue.try_pop();
@@ -102,13 +112,7 @@ void DFS::DFS_MT_traversal(shared_ptr<StackWithSplit<GraphNode>> stack, shared_p
 				return;
 			}
 
-			for (auto&& neighbour : curNode->neighbours) {
-				if (!visited->test_and_set_added(neighbour->key))
-					stack->push(*neighbour);
-			}
-
-			if(nodes_visited_since_last_split > command->sufficiency_param && 
-				stack->get_size() > command->polling_param)
+			if(nodes_visited_since_last_split > command->sufficiency_param &&  stack->get_size() > command->polling_param)
 			{
 				std::shared_ptr<StackSplitRequest> req = util_struct->stack_split_req_queue.try_pop();
 				if (req != nullptr) 
@@ -123,13 +127,15 @@ void DFS::DFS_MT_traversal(shared_ptr<StackWithSplit<GraphNode>> stack, shared_p
 				
 			}
 		}
-		else 
+		else if(!visited->visited_all())
 		{
-			//ssr_mutex->lock();
 			util_struct->stack_split_req_queue.push(StackSplitRequest(stack, ssr_mutex, ssr_cond_var));
-			//ssr_mutex->unlock();
 			std::unique_lock<std::mutex> ul(*ssr_mutex);
 			ssr_cond_var->wait(ul, [&] {return !stack->empty() || visited->visited_all(); });
+		}
+		else 
+		{
+			break;
 		}
 	}
 

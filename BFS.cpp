@@ -52,6 +52,8 @@ void BFS::BFS_MT(const shared_ptr<ServerCommand>& command)
 
 	ThreadPool::getInstance()->joinThreadsFromPool();
 	ThreadPool::destroy_pool();
+	command->result_report.elapsed_time = command->result_report.end_time - command->result_report.start_time;
+
 }
 
 void BFS::BFS_MT_traversal(const shared_ptr<GraphNode>& node, shared_ptr<VisitedArrayCppThreads> visited, const shared_ptr<ServerCommand>& command)
@@ -60,21 +62,25 @@ void BFS::BFS_MT_traversal(const shared_ptr<GraphNode>& node, shared_ptr<Visited
 	{
 		node->traverseNode(command);
 		visited->increase_visited();
+
+		if (!visited->added_all()) {
+			for (shared_ptr<GraphNode> neighbour : node->neighbours)
+			{
+				if (!visited->test_and_set_added(neighbour->key))
+				{
+					ThreadPool::getInstance()->submit([=]()->void { BFS::BFS_MT_traversal(neighbour, visited, command); });
+					visited->increase_added();
+				}
+			}
+		}
 	}
 
 	if (visited->visited_all())
 	{
-		command->result_report.end_time = chrono::system_clock::now();
-		command->result_report.elapsed_time = command->result_report.end_time - command->result_report.start_time;
-		ThreadPool::getInstance()->stopThreads();
-		return;
-	}
-
-	for (shared_ptr<GraphNode> neighbour : node->neighbours)
-	{
-		if (!visited->test_and_set_added(neighbour->key))
+		if (!visited->test_and_set_end_time_writen()) 
 		{
-			ThreadPool::getInstance()->submit([=]()->void { BFS::BFS_MT_traversal(neighbour, visited, command); });
+			command->result_report.end_time = chrono::system_clock::now();
+			ThreadPool::getInstance()->stopThreads();
 		}
 	}
 

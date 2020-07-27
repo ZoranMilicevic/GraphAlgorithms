@@ -21,10 +21,7 @@ public:
 class DFS_MT_Util
 {
 public:
-	DFS_MT_Util() {
-		end_timer_set.clear();
-	};
+	DFS_MT_Util() {};
 
 	DataQueueCppThreads<StackSplitRequest> stack_split_req_queue;
-	std::atomic_flag end_timer_set;
 };

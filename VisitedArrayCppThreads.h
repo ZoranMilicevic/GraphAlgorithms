@@ -16,9 +16,13 @@ class VisitedArrayCppThreads
 public:
 	VisitedArrayCppThreads(int number_of_nodes)
 		:sh_mutex_array(new std::shared_mutex[number_of_nodes]()),
-		number_of_nodes(number_of_nodes),
 		visited(new NodeState[number_of_nodes]()),
-		number_of_visited(0){}
+		number_of_nodes(number_of_nodes),
+		number_of_visited(0),
+		number_of_added(0)
+	{
+		end_time_written.clear();
+	}
 
 	virtual ~VisitedArrayCppThreads() {}
 
@@ -64,14 +68,31 @@ public:
 		number_of_visited++;
 	}
 
+	virtual void increase_added()
+	{
+		number_of_added;
+	}
+
 	virtual bool visited_all()
 	{
 		return number_of_visited == number_of_nodes;
 	}
 
+	virtual bool added_all()
+	{
+		return number_of_added == number_of_nodes;
+	}
+
+	virtual bool test_and_set_end_time_writen()
+	{
+		return end_time_written.test_and_set();
+	}
+
 protected:
 	mutable std::shared_ptr<std::shared_mutex[]> sh_mutex_array;
-	const int number_of_nodes;
 	std::shared_ptr<NodeState[]> visited;
+	const int number_of_nodes;
 	std::atomic<int> number_of_visited;
+	std::atomic<int> number_of_added;
+	std::atomic_flag end_time_written;
 };

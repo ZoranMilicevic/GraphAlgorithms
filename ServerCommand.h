@@ -18,11 +18,10 @@ public:
 	~ServerCommand(){}
 
 	void execute_command();
-
 	std::string result_xml()const;
-
 	void create_graph();
 
+	//config stuff
 	GraphAlgorithm algorithm;
 	int number_of_threads;
 	int number_of_nodes;
@@ -34,9 +33,11 @@ public:
 	int sufficiency_param;
 	bool include_node_reports;
 
+	//graph stuff
 	std::vector<int> node_keys;
 	std::vector<std::pair<int, int>> edges;
 	std::shared_ptr<GraphNode> graph_root;
 
+	//command result
 	ResultReport result_report;
 };

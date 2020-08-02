@@ -84,9 +84,6 @@
     <ClInclude Include="GraphAlgorithms.h">
       <Filter>GraphAlgorithms</Filter>
     </ClInclude>
-    <ClInclude Include="ServerStartUp.h">
-      <Filter>Server</Filter>
-    </ClInclude>
     <ClInclude Include="DFS.h">
       <Filter>GraphAlgorithms\DFS</Filter>
     </ClInclude>
@@ -125,8 +122,5 @@
     <ClCompile Include="ServerCommand.cpp">
       <Filter>ServerCommand</Filter>
     </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
   </ItemGroup>
 </Project>

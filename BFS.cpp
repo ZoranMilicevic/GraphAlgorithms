@@ -61,7 +61,7 @@ void BFS::BFS_MT_traversal(const shared_ptr<GraphNode>& node, shared_ptr<Visited
 	if (!visited->test_and_set_visited(node->key))
 	{
 		node->traverseNode(command);
-		visited->increase_visited();
+		visited->increment_visited();
 
 		if (!visited->added_all()) {
 			for (shared_ptr<GraphNode> neighbour : node->neighbours)
@@ -69,7 +69,7 @@ void BFS::BFS_MT_traversal(const shared_ptr<GraphNode>& node, shared_ptr<Visited
 				if (!visited->test_and_set_added(neighbour->key))
 				{
 					ThreadPool::getInstance()->submit([=]()->void { BFS::BFS_MT_traversal(neighbour, visited, command); });
-					visited->increase_added();
+					visited->increment_added();
 				}
 			}
 		}

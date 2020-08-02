@@ -83,7 +83,7 @@ void DFS::DFS_MT_traversal(shared_ptr<StackWithSplit<GraphNode>> stack, shared_p
 			if (!visited->test_and_set_visited(curNode->key))
 			{
 				curNode->traverseNode(command);
-				visited->increase_visited();
+				visited->increment_visited();
 				nodes_visited_since_last_split++;
 
 				if (!visited->added_all()) {
@@ -92,7 +92,7 @@ void DFS::DFS_MT_traversal(shared_ptr<StackWithSplit<GraphNode>> stack, shared_p
 						if (!visited->test_and_set_added(neighbour->key))
 						{
 							stack->push(*neighbour);
-							visited->increase_added();
+							visited->increment_added();
 						}
 					}
 				}

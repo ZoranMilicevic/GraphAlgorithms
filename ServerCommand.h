@@ -32,6 +32,7 @@ public:
 	std::string graph_type;
 	int polling_param;
 	int sufficiency_param;
+	bool include_node_reports;
 
 	std::vector<int> node_keys;
 	std::vector<std::pair<int, int>> edges;

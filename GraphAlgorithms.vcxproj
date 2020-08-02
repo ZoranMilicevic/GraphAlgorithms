@@ -30,8 +30,6 @@
     <ClInclude Include="JoinThreads.h" />
     <ClInclude Include="GraphNode.h" />
     <ClInclude Include="NodeResultReport.h" />
-    <ClInclude Include="pugiconfig.hpp" />
-    <ClInclude Include="pugixml.hpp" />
     <ClInclude Include="ResultReport.h" />
     <ClInclude Include="ServerCommand.h" />
     <ClInclude Include="ServerStartUp.h" />
@@ -47,10 +45,12 @@
     <ClCompile Include="DFS.cpp" />
     <ClCompile Include="GraphGenerator.cpp" />
     <ClCompile Include="GraphNode.cpp" />
-    <ClCompile Include="pugixml.cpp" />
     <ClCompile Include="ResultReport.cpp" />
     <ClCompile Include="ServerCommand.cpp" />
     <ClCompile Include="ServerStartUp.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
@@ -188,5 +188,13 @@
     </Link>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
-  <ImportGroup Label="ExtensionTargets" />
+  <ImportGroup Label="ExtensionTargets">
+    <Import Project="..\packages\pugixml.1.10.0\build\native\pugixml.targets" Condition="Exists('..\packages\pugixml.1.10.0\build\native\pugixml.targets')" />
+  </ImportGroup>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\pugixml.1.10.0\build\native\pugixml.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\pugixml.1.10.0\build\native\pugixml.targets'))" />
+  </Target>
 </Project>

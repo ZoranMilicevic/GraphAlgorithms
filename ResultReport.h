@@ -12,13 +12,13 @@ class ResultReport
 public:
 	ResultReport(): elapsed_time(0) {}
 
-	void add_node_result_report(const NodeResultReport& new_report)
+	void add_node_result_report(const std::shared_ptr<NodeResultReport>& new_report)
 	{
 		//do not use mutex because each thread is writing to diffrent location in vector
-		node_results[new_report.node_key] = std::make_shared<NodeResultReport>(new_report);
+		node_results[new_report->node_key] = new_report;
 	}
 	
-	std::string to_xml_string() const;
+	std::string to_xml_string(bool include_node_reports = false) const;
 	
 	virtual ~ResultReport() {};
 

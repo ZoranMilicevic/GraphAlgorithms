@@ -22,9 +22,6 @@
     <Filter Include="DataStructures\VisistedArray">
       <UniqueIdentifier>{db08d650-0d59-4b33-86a3-6eac3eb8a971}</UniqueIdentifier>
     </Filter>
-    <Filter Include="XML Parser">
-      <UniqueIdentifier>{375ba34f-4a67-4eb9-919f-16f4f7023dd1}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Server">
       <UniqueIdentifier>{7eb86345-91b5-4469-93eb-76236ca44b83}</UniqueIdentifier>
     </Filter>
@@ -84,12 +81,6 @@
     <ClInclude Include="ResultReport.h">
       <Filter>Results</Filter>
     </ClInclude>
-    <ClInclude Include="pugiconfig.hpp">
-      <Filter>XML Parser</Filter>
-    </ClInclude>
-    <ClInclude Include="pugixml.hpp">
-      <Filter>XML Parser</Filter>
-    </ClInclude>
     <ClInclude Include="GraphAlgorithms.h">
       <Filter>GraphAlgorithms</Filter>
     </ClInclude>
@@ -119,9 +110,6 @@
     <ClCompile Include="ServerStartUp.cpp">
       <Filter>Server</Filter>
     </ClCompile>
-    <ClCompile Include="pugixml.cpp">
-      <Filter>XML Parser</Filter>
-    </ClCompile>
     <ClCompile Include="ResultReport.cpp">
       <Filter>Results</Filter>
     </ClCompile>
@@ -137,5 +125,8 @@
     <ClCompile Include="ServerCommand.cpp">
       <Filter>ServerCommand</Filter>
     </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
 </Project>

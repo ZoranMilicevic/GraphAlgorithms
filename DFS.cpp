@@ -103,6 +103,7 @@ void DFS::DFS_MT_traversal(shared_ptr<StackWithSplit<GraphNode>> stack, shared_p
 				if(!visited->test_and_set_end_time_writen())
 					command->result_report.end_time = chrono::system_clock::now();
 				
+				//empty the existing requests to unblock the threads
 				std::shared_ptr<StackSplitRequest> req = util_struct->stack_split_req_queue.try_pop();
 				while(req!=nullptr)
 				{

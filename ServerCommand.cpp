@@ -46,13 +46,18 @@ void process_attribute(const char* name, const char* value, const shared_ptr<Ser
 	{
 		sc->graph_type = value_str;
 	}
-	else if (name_str == "polling_param") 
+	else if (name_str == "pollingParam") 
 	{
 		sc->polling_param = stoi(value_str);
 	}
-	else if(name_str == "sufficiency_param")
+	else if(name_str == "sufficiencyParam")
 	{
 		sc->sufficiency_param = stoi(value_str);
+	}
+	else if(name_str == "includeNodeReports")
+	{
+		int value = stoi(value_str);
+		sc->include_node_reports = value == 1 ? true : false;
 	}
 }
 
@@ -123,8 +128,10 @@ std::string ServerCommand::result_xml() const
 	xml_string << "<condVarWaitTime>" << cond_var_wait_time << "</condVarWaitTime>";
 	xml_string << "<rootKey>" << root_key << "</rootKey>";
 	xml_string << "<graphType>" << graph_type << "</graphType>";
+	xml_string << "<pollingParam>" << polling_param << "</pollingParam>";
+	xml_string << "<sufficiencyParam>" << sufficiency_param << "</sufficiencyParam>";
 
-	xml_string << result_report.to_xml_string();
+	xml_string << result_report.to_xml_string(include_node_reports);
 	return xml_string.str();
 }
 

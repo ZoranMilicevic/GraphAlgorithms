@@ -6,8 +6,16 @@ template <class T>
 class DataQueueSingleThread
 {
 public:
-	DataQueueSingleThread() :head(nullptr), tail(nullptr) {};
-	virtual ~DataQueueSingleThread() {}
+	DataQueueSingleThread() :head(nullptr), tail(nullptr), _size(0) {};
+	virtual ~DataQueueSingleThread() {
+		//must be like this, because if not, too many nodes
+		//will cause to many destructors called recursivly 
+		//which will result in stack overflow
+		auto curNode = std::move(head);
+		while (curNode) {
+			curNode = std::move(curNode->next);
+		}
+	}
 
 	virtual void push(const T& new_elem)
 	{
@@ -25,6 +33,7 @@ public:
 			tail->next = std::move(new_node);
 			tail = new_tail;
 		}
+		_size++;
 	};
 
 	virtual std::shared_ptr<T> pop()
@@ -34,6 +43,7 @@ public:
 
 		std::unique_ptr<DataNode<T>> old_head = std::move(head);
 		head = std::move(old_head->next);
+		_size--;
 
 		if (head == nullptr) tail = nullptr;
 
@@ -45,7 +55,13 @@ public:
 		return head == nullptr;
 	};
 
+	virtual int size() const 
+	{
+		return _size;
+	}
+
 protected:
 	std::unique_ptr<DataNode<T>> head;
 	DataNode<T> *tail;
+	unsigned _size;
 };

@@ -43,13 +43,13 @@ void DFS::DFS_ST(const std::shared_ptr<ServerCommand>& command)
 void DFS::DFS_MT(const std::shared_ptr<ServerCommand>& command)
 {
 	vector<thread> vector_of_worker_threads;
-	vector<shared_ptr<StackWithSplit<GraphNode>>> vector_of_starting_stacks;
+	vector<shared_ptr<DataStackSingleThread<GraphNode>>> vector_of_starting_stacks;
 	shared_ptr<VisitedArrayCppThreads> visited(new VisitedArrayCppThreads(command->number_of_nodes));
 	shared_ptr<DFS_MT_Util> util_struct = make_shared<DFS_MT_Util>();
 
 	//create initial node stacks for threads
 	for(int i = 0; i < command->number_of_threads; i++)
-		vector_of_starting_stacks.push_back(make_shared<StackWithSplit<GraphNode>>());
+		vector_of_starting_stacks.push_back(make_shared<DataStackSingleThread<GraphNode>>());
 	vector_of_starting_stacks[0]->push(*command->graph_root);
 
 	command->result_report.start_time = chrono::system_clock::now();
@@ -68,7 +68,7 @@ void DFS::DFS_MT(const std::shared_ptr<ServerCommand>& command)
 	
 }
 
-void DFS::DFS_MT_traversal(shared_ptr<StackWithSplit<GraphNode>> stack, shared_ptr<VisitedArrayCppThreads> visited, const shared_ptr<ServerCommand>& command, const shared_ptr<DFS_MT_Util>& util_struct)
+void DFS::DFS_MT_traversal(shared_ptr<DataStackSingleThread<GraphNode>> stack, shared_ptr<VisitedArrayCppThreads> visited, const shared_ptr<ServerCommand>& command, const shared_ptr<DFS_MT_Util>& util_struct)
 {
 	int nodes_visited_since_last_split = 0;
 	shared_ptr<mutex> ssr_mutex = make_shared<mutex>();
@@ -113,7 +113,7 @@ void DFS::DFS_MT_traversal(shared_ptr<StackWithSplit<GraphNode>> stack, shared_p
 				return;
 			}
 
-			if(nodes_visited_since_last_split > command->sufficiency_param &&  stack->get_size() > command->polling_param)
+			if(nodes_visited_since_last_split > command->sufficiency_param &&  stack->size() > command->polling_param)
 			{
 				std::shared_ptr<StackSplitRequest> req = util_struct->stack_split_req_queue.try_pop();
 				if (req != nullptr) 

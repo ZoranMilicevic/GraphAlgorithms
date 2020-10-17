@@ -41,7 +41,7 @@ public:
 
 	virtual void increment_added()
 	{
-		number_of_added;
+		number_of_added++;
 	}
 
 	virtual bool visited_all()
@@ -63,7 +63,7 @@ protected:
 	std::shared_ptr<std::atomic_flag[]> visited;
 	std::shared_ptr<std::atomic_flag[]> added;
 	const int number_of_nodes;
-	std::atomic<int> number_of_visited;
-	std::atomic<int> number_of_added;
+	std::atomic_int number_of_visited;
+	std::atomic_int number_of_added;
 	std::atomic_flag end_time_written;
 };

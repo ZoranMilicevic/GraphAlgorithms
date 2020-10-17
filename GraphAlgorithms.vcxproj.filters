@@ -99,6 +99,9 @@
     <ClInclude Include="StackWithSplit.h">
       <Filter>DataStructures\StackWithSplit</Filter>
     </ClInclude>
+    <ClInclude Include="Semaphore.h">
+      <Filter>DataStructures</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GraphGenerator.cpp">

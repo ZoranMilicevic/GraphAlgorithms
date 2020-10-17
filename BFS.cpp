@@ -50,10 +50,8 @@ void BFS::BFS_MT(const shared_ptr<ServerCommand>& command)
 		[=]()->void { BFS::BFS_MT_traversal(command->graph_root, visited, command); }
 	);
 
-	ThreadPool::getInstance()->joinThreadsFromPool();
-	ThreadPool::destroy_pool();
+	command->sem.wait();
 	command->result_report.elapsed_time = command->result_report.end_time - command->result_report.start_time;
-
 }
 
 void BFS::BFS_MT_traversal(const shared_ptr<GraphNode>& node, shared_ptr<VisitedArrayCppThreads> visited, const shared_ptr<ServerCommand>& command)
@@ -80,7 +78,7 @@ void BFS::BFS_MT_traversal(const shared_ptr<GraphNode>& node, shared_ptr<Visited
 		if (!visited->test_and_set_end_time_writen()) 
 		{
 			command->result_report.end_time = chrono::system_clock::now();
-			ThreadPool::getInstance()->stopThreads();
+			command->sem.post();
 		}
 	}
 

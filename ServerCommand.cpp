@@ -6,10 +6,8 @@
 #include "GraphAlgorithms.h"
 #include "GraphGenerator.h"
 
-
 using namespace std;
 using namespace pugi;
-
 
 void process_attribute(const char* name, const char* value, const shared_ptr<ServerCommand>& sc)
 {
@@ -33,10 +31,6 @@ void process_attribute(const char* name, const char* value, const shared_ptr<Ser
 	else if(name_str == "nodeTraverseTime")
 	{
 		sc->node_traverse_time = stoi(value_str);
-	}
-	else if (name_str == "condVarWaitTime")
-	{
-		sc->cond_var_wait_time = stoi(value_str);
 	}
 	else if(name_str == "rootKey")
 	{
@@ -125,7 +119,6 @@ std::string ServerCommand::result_xml() const
 	xml_string << "<numberOfThreads>" << number_of_threads << "</numberOfThreads>";
 	xml_string << "<numberOfNodes>" << number_of_nodes << "</numberOfNodes>";
 	xml_string << "<nodeTraverseTime>" << node_traverse_time << "</nodeTraverseTime>";
-	xml_string << "<condVarWaitTime>" << cond_var_wait_time << "</condVarWaitTime>";
 	xml_string << "<rootKey>" << root_key << "</rootKey>";
 	xml_string << "<graphType>" << graph_type << "</graphType>";
 	xml_string << "<pollingParam>" << polling_param << "</pollingParam>";

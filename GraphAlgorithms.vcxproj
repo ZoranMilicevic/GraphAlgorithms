@@ -31,6 +31,7 @@
     <ClInclude Include="GraphNode.h" />
     <ClInclude Include="NodeResultReport.h" />
     <ClInclude Include="ResultReport.h" />
+    <ClInclude Include="Semaphore.h" />
     <ClInclude Include="ServerCommand.h" />
     <ClInclude Include="StackWithSplit.h" />
     <ClInclude Include="ThreadPool.h" />
@@ -108,7 +109,7 @@
     <LinkIncremental>true</LinkIncremental>
     <OutDir>$(SolutionDir)bin\$(ProjectName)\$(Platform)\$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)obj\$(ProjectName)\$(Platform)\$(Configuration)\</IntDir>
-    <IncludePath>C:\Users\Zoran Milicevic\AppData\Local\Programs\Python\Python38\include;$(IncludePath)</IncludePath>
+    <IncludePath>$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>

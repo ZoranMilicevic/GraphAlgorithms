@@ -14,7 +14,7 @@ public:
 	static void DFS_MT(const std::shared_ptr<ServerCommand>& command);
 
 	static void DFS_MT_traversal(
-		std::shared_ptr<StackWithSplit<GraphNode>> starting_stack,
+		std::shared_ptr<DataStackSingleThread<GraphNode>> starting_stack,
 		std::shared_ptr<VisitedArrayCppThreads> visited, 
 		const std::shared_ptr<ServerCommand>& command,
 		const std::shared_ptr<DFS_MT_Util>& util_struct

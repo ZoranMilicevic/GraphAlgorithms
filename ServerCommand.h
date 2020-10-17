@@ -4,6 +4,7 @@
 #include <string>
 #include <utility>
 #include <memory>
+#include "Semaphore.h"
 #include "ResultReport.h"
 #include "GraphNode.h"
 
@@ -14,7 +15,9 @@ class ServerCommand : public std::enable_shared_from_this<ServerCommand>
 public:
 	static std::shared_ptr<ServerCommand> create_from_xml(const std::string& buffer);
 
-	ServerCommand() {};
+	ServerCommand() : number_of_threads(0), number_of_nodes(0),
+		node_traverse_time(0), root_key(0), graph_type(""), polling_param(0), sufficiency_param(0),
+		include_node_reports(0), sem(0){};
 	~ServerCommand(){}
 
 	void execute_command();
@@ -26,7 +29,6 @@ public:
 	int number_of_threads;
 	int number_of_nodes;
 	int node_traverse_time;
-	int cond_var_wait_time;
 	int root_key;
 	std::string graph_type;
 	int polling_param;
@@ -40,4 +42,6 @@ public:
 
 	//command result
 	ResultReport result_report;
+	
+	FastSemaphore sem;
 };

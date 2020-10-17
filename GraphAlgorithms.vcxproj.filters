@@ -4,9 +4,6 @@
     <Filter Include="GraphAlgorithms">
       <UniqueIdentifier>{1142b7fe-6cf9-4a84-bdf6-cd80f6eea068}</UniqueIdentifier>
     </Filter>
-    <Filter Include="GraphGenerators">
-      <UniqueIdentifier>{a3a15a59-9f68-429b-aafa-c99da898925b}</UniqueIdentifier>
-    </Filter>
     <Filter Include="DataStructures">
       <UniqueIdentifier>{a8d531a5-0cdc-4738-89f0-e1d2aed9c530}</UniqueIdentifier>
     </Filter>
@@ -34,21 +31,12 @@
     <Filter Include="Results">
       <UniqueIdentifier>{ab9ef65a-4153-4765-ad33-048e50e80bea}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ServerCommand">
-      <UniqueIdentifier>{56c49243-84c7-42e2-aced-9970f832e492}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="DataStructures\StackWithSplit">
-      <UniqueIdentifier>{7c98cb89-35d9-494b-a9f6-0c899e0dcb6f}</UniqueIdentifier>
+    <Filter Include="Graph">
+      <UniqueIdentifier>{a3a15a59-9f68-429b-aafa-c99da898925b}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="GraphGenerator.h">
-      <Filter>GraphGenerators</Filter>
-    </ClInclude>
     <ClInclude Include="ThreadPool.h">
-      <Filter>DataStructures\ThreadPool</Filter>
-    </ClInclude>
-    <ClInclude Include="JoinThreads.h">
       <Filter>DataStructures\ThreadPool</Filter>
     </ClInclude>
     <ClInclude Include="DataNode.h">
@@ -73,7 +61,7 @@
       <Filter>DataStructures\VisistedArray</Filter>
     </ClInclude>
     <ClInclude Include="GraphNode.h">
-      <Filter>GraphGenerators</Filter>
+      <Filter>Graph</Filter>
     </ClInclude>
     <ClInclude Include="NodeResultReport.h">
       <Filter>Results</Filter>
@@ -81,40 +69,25 @@
     <ClInclude Include="ResultReport.h">
       <Filter>Results</Filter>
     </ClInclude>
-    <ClInclude Include="GraphAlgorithms.h">
-      <Filter>GraphAlgorithms</Filter>
-    </ClInclude>
     <ClInclude Include="DFS.h">
       <Filter>GraphAlgorithms\DFS</Filter>
     </ClInclude>
     <ClInclude Include="BFS.h">
       <Filter>GraphAlgorithms\BFS</Filter>
     </ClInclude>
-    <ClInclude Include="ServerCommand.h">
-      <Filter>ServerCommand</Filter>
-    </ClInclude>
     <ClInclude Include="DFS_MT_Util.h">
       <Filter>GraphAlgorithms\DFS</Filter>
-    </ClInclude>
-    <ClInclude Include="StackWithSplit.h">
-      <Filter>DataStructures\StackWithSplit</Filter>
     </ClInclude>
     <ClInclude Include="Semaphore.h">
       <Filter>DataStructures</Filter>
     </ClInclude>
+    <ClInclude Include="ServerCommand.h">
+      <Filter>Server</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="GraphGenerator.cpp">
-      <Filter>GraphGenerators</Filter>
-    </ClCompile>
-    <ClCompile Include="ServerStartUp.cpp">
-      <Filter>Server</Filter>
-    </ClCompile>
-    <ClCompile Include="ResultReport.cpp">
-      <Filter>Results</Filter>
-    </ClCompile>
     <ClCompile Include="GraphNode.cpp">
-      <Filter>GraphGenerators</Filter>
+      <Filter>Graph</Filter>
     </ClCompile>
     <ClCompile Include="DFS.cpp">
       <Filter>GraphAlgorithms\DFS</Filter>
@@ -122,8 +95,11 @@
     <ClCompile Include="BFS.cpp">
       <Filter>GraphAlgorithms\BFS</Filter>
     </ClCompile>
+    <ClCompile Include="Server.cpp">
+      <Filter>Server</Filter>
+    </ClCompile>
     <ClCompile Include="ServerCommand.cpp">
-      <Filter>ServerCommand</Filter>
+      <Filter>Server</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

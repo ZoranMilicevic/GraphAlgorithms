@@ -4,6 +4,7 @@
 #include <string>
 #include <utility>
 #include <memory>
+#include <thread>
 #include "Semaphore.h"
 #include "ResultReport.h"
 #include "GraphNode.h"
@@ -13,31 +14,33 @@ enum class GraphAlgorithm;
 class ServerCommand : public std::enable_shared_from_this<ServerCommand>
 {
 public:
-	static std::shared_ptr<ServerCommand> create_from_xml(const std::string& buffer);
-
-	ServerCommand() : number_of_threads(0), number_of_nodes(0),
-		node_traverse_time(0), root_key(0), graph_type(""), polling_param(0), sufficiency_param(0),
-		include_node_reports(0), sem(0){};
+	ServerCommand(
+		unsigned number_of_threads, unsigned number_of_nodes, unsigned node_traverse_time, unsigned root_key,
+		unsigned polling_param, unsigned sufficiency_param, bool include_node_reports, const std::string& graph_str
+	) : number_of_nodes(number_of_nodes), node_traverse_time(node_traverse_time), root_key(root_key), 
+		polling_param(polling_param), sufficiency_param(sufficiency_param),
+		include_node_reports(include_node_reports), sem(0) 
+	{
+		if (number_of_threads == 0 || number_of_threads > std::thread::hardware_concurrency())
+			this->number_of_threads = std::thread::hardware_concurrency();
+		if (include_node_reports)
+			result_report.node_results.resize(number_of_nodes);
+		create_graph_from_string(graph_str);
+	};
 	~ServerCommand(){}
 
-	void execute_command();
-	std::string result_xml()const;
-	void create_graph();
+	void create_graph_from_string(const std::string& graph_str);
 
 	//config stuff
-	GraphAlgorithm algorithm;
-	int number_of_threads;
-	int number_of_nodes;
-	int node_traverse_time;
-	int root_key;
-	std::string graph_type;
-	int polling_param;
-	int sufficiency_param;
+	unsigned number_of_threads;
+	unsigned number_of_nodes;
+	unsigned node_traverse_time;
+	unsigned root_key;
+	unsigned polling_param;
+	unsigned sufficiency_param;
 	bool include_node_reports;
 
-	//graph stuff
-	std::vector<int> node_keys;
-	std::vector<std::pair<int, int>> edges;
+	//graph root
 	std::shared_ptr<GraphNode> graph_root;
 
 	//command result

@@ -36,7 +36,6 @@ void BFS::BFS_ST(const shared_ptr<ServerCommand>& command)
 	}
 
 	command->result_report.end_time = chrono::system_clock::now();
-	command->result_report.elapsed_time = command->result_report.end_time - command->result_report.start_time;
 }
 
 
@@ -45,16 +44,20 @@ void BFS::BFS_MT(const shared_ptr<ServerCommand>& command)
 {
 	shared_ptr<VisitedArrayCppThreads> visited(new VisitedArrayCppThreads(command->number_of_nodes));
 
+	std::shared_ptr<ThreadPool> pool = std::make_shared<ThreadPool>(command->number_of_threads);
 	command->result_report.start_time = chrono::system_clock::now();
-	ThreadPool::getInstance(command->number_of_threads)->submit(
-		[=]()->void { BFS::BFS_MT_traversal(command->graph_root, visited, command); }
+
+	pool->submit(
+		[=]()->void { BFS::BFS_MT_traversal(command->graph_root, visited, command, pool); }
 	);
 
 	command->sem.wait();
-	command->result_report.elapsed_time = command->result_report.end_time - command->result_report.start_time;
 }
 
-void BFS::BFS_MT_traversal(const shared_ptr<GraphNode>& node, shared_ptr<VisitedArrayCppThreads> visited, const shared_ptr<ServerCommand>& command)
+void BFS::BFS_MT_traversal(
+	const shared_ptr<GraphNode>& node, shared_ptr<VisitedArrayCppThreads> visited, 
+	const shared_ptr<ServerCommand>& command, std::shared_ptr<ThreadPool> pool
+)
 {
 	if (!visited->test_and_set_visited(node->key))
 	{
@@ -66,7 +69,7 @@ void BFS::BFS_MT_traversal(const shared_ptr<GraphNode>& node, shared_ptr<Visited
 			{
 				if (!visited->test_and_set_added(neighbour->key))
 				{
-					ThreadPool::getInstance()->submit([=]()->void { BFS::BFS_MT_traversal(neighbour, visited, command); });
+					pool->submit([=]()->void { BFS::BFS_MT_traversal(neighbour, visited, command, pool); });
 					visited->increment_added();
 				}
 			}

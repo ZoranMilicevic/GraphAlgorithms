@@ -1,6 +1,7 @@
 #pragma once
 
 #include <memory>
+#include "ThreadPool.h"
 #include "ServerCommand.h"
 #include "VisitedArrayCppThreads.h"
 
@@ -10,6 +11,8 @@ public:
 	static void BFS_ST(const std::shared_ptr<ServerCommand>& command);
 
 	static void BFS_MT(const std::shared_ptr<ServerCommand>& command);
-	static void BFS_MT_traversal(const std::shared_ptr<GraphNode>& node, std::shared_ptr<VisitedArrayCppThreads> visited, const std::shared_ptr<ServerCommand>& command);
+	static void BFS_MT_traversal(
+		const std::shared_ptr<GraphNode>& node, std::shared_ptr<VisitedArrayCppThreads> visited, 
+		const std::shared_ptr<ServerCommand>& command, std::shared_ptr<ThreadPool> pool);
 };
 

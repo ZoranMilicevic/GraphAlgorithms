@@ -30,9 +30,9 @@ void DFS::DFS_ST(const std::shared_ptr<ServerCommand>& command)
 				break;
 		}
 
-		for (auto&& neighbour : curNode->neighbours) {
-			if (!visited.is_visited(neighbour->key))
-				stack.push(*neighbour);
+		for (auto&& edge : curNode->outgoingEdges) {
+			if (!visited.is_visited(edge->toNode->key))
+				stack.push(*edge->toNode);
 		}
 	}
 
@@ -91,11 +91,11 @@ void DFS::DFS_MT_traversal(
 				nodes_visited_since_last_split++;
 
 				if (!visited->added_all()) {
-					for (auto&& neighbour : curNode->neighbours)
+					for (auto&& edge : curNode->outgoingEdges)
 					{
-						if (!visited->test_and_set_added(neighbour->key))
+						if (!visited->test_and_set_added(edge->toNode->key))
 						{
-							stack->push(*neighbour);
+							stack->push(*edge->toNode);
 							visited->increment_added();
 						}
 					}

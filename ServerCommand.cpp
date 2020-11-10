@@ -36,9 +36,9 @@ void ServerCommand::create_graph_from_string(const std::string& graph_str)
 				size_t pos = token.find_first_of(':');
 				int key1 = std::stoi(token.substr(0, pos));
 				int key2 = std::stoi(token.substr(pos + 1));
-				nodes[key1]->addNeighbour(nodes[key2]);
+				nodes[key1]->addEdge(nodes[key2]);
 				if(!directed_graph)
-					nodes[key2]->addNeighbour(nodes[key1]);
+					nodes[key2]->addEdge(nodes[key1]);
 			}
 		}
 	}

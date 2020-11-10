@@ -29,9 +29,9 @@ void BFS::BFS_ST(const shared_ptr<ServerCommand>& command)
 				break;
 		}
 
-		for (auto&& neighbour : curNode->neighbours) {
-			if (!visited.is_visited(neighbour->key))
-				queue.push(*neighbour);
+		for (auto&& edge : curNode->outgoingEdges) {
+			if (!visited.is_visited(edge->toNode->key))
+				queue.push(*edge->toNode);
 		}
 	}
 
@@ -67,11 +67,11 @@ void BFS::BFS_MT_traversal(
 		visited->increment_visited();
 
 		if (!visited->added_all()) {
-			for (shared_ptr<GraphNode> neighbour : node->neighbours)
+			for (auto&& edge : node->outgoingEdges)
 			{
-				if (!visited->test_and_set_added(neighbour->key))
+				if (!visited->test_and_set_added(edge->toNode->key))
 				{
-					pool->submit([=]()->void { BFS::BFS_MT_traversal(neighbour, visited, command, pool); });
+					pool->submit([=]()->void { BFS::BFS_MT_traversal(edge->toNode, visited, command, pool); });
 					visited->increment_added();
 				}
 			}

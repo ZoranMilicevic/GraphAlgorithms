@@ -55,8 +55,10 @@ void BFS::BFS_MT(const shared_ptr<ServerCommand>& command)
 }
 
 void BFS::BFS_MT_traversal(
-	const shared_ptr<GraphNode>& node, shared_ptr<VisitedArrayCppThreads> visited, 
-	const shared_ptr<ServerCommand>& command, std::shared_ptr<ThreadPool> pool
+	const shared_ptr<GraphNode>& node, 
+	shared_ptr<VisitedArrayCppThreads> visited, 
+	const shared_ptr<ServerCommand>& command, 
+	std::shared_ptr<ThreadPool> pool
 )
 {
 	if (!visited->test_and_set_visited(node->key))

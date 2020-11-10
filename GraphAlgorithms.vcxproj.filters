@@ -34,6 +34,9 @@
     <Filter Include="Graph">
       <UniqueIdentifier>{a3a15a59-9f68-429b-aafa-c99da898925b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GraphAlgorithms\MST">
+      <UniqueIdentifier>{69b78a97-1f68-4b2e-909e-f3f81cb40e9d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ThreadPool.h">
@@ -84,6 +87,9 @@
     <ClInclude Include="ServerCommand.h">
       <Filter>Server</Filter>
     </ClInclude>
+    <ClInclude Include="MST.h">
+      <Filter>GraphAlgorithms\MST</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GraphNode.cpp">
@@ -100,6 +106,9 @@
     </ClCompile>
     <ClCompile Include="ServerCommand.cpp">
       <Filter>Server</Filter>
+    </ClCompile>
+    <ClCompile Include="MST.cpp">
+      <Filter>GraphAlgorithms\MST</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

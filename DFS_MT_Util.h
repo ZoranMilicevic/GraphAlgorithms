@@ -10,8 +10,11 @@
 class StackSplitRequest
 {
 public:
-	StackSplitRequest(std::shared_ptr<DataStackSingleThread<GraphNode>> to_fill, std::shared_ptr<std::mutex> ssr_mutex, std::shared_ptr<std::condition_variable> ssr_cond_var) :
-		to_fill(to_fill), ssr_mutex(ssr_mutex), ssr_cond_var(ssr_cond_var) {}
+	StackSplitRequest(
+		std::shared_ptr<DataStackSingleThread<GraphNode>> to_fill, 
+		std::shared_ptr<std::mutex> ssr_mutex, 
+		std::shared_ptr<std::condition_variable> ssr_cond_var
+) : to_fill(to_fill), ssr_mutex(ssr_mutex), ssr_cond_var(ssr_cond_var) {}
 
 	std::shared_ptr<DataStackSingleThread<GraphNode>> to_fill;
 	std::shared_ptr<std::mutex> ssr_mutex;

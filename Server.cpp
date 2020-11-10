@@ -14,7 +14,7 @@ std::string bfs_st(unsigned number_of_nodes, unsigned node_traverse_time, unsign
 	std::cout << "bfs_st called" << std::endl;
 
 	std::shared_ptr<ServerCommand> command = std::make_shared<ServerCommand>(
-		1, number_of_nodes, node_traverse_time, root_key, 0, 0, include_node_reports, graph_str);
+		1, number_of_nodes, node_traverse_time, root_key, 0, 0, include_node_reports, graph_str, false);
 
 	BFS::BFS_ST(command);
 
@@ -30,7 +30,7 @@ std::string dfs_st(unsigned number_of_nodes, unsigned node_traverse_time, unsign
 	std::cout << "dfs_st called" << std::endl;
 
 	std::shared_ptr<ServerCommand> command = std::make_shared<ServerCommand>(
-		1, number_of_nodes, node_traverse_time, root_key, 0, 0, include_node_reports, graph_str);
+		1, number_of_nodes, node_traverse_time, root_key, 0, 0, include_node_reports, graph_str, false);
 
 	DFS::DFS_ST(command);
 
@@ -47,7 +47,7 @@ std::string bfs_mt(
 	std::cout << "bfs_mt called" << std::endl;
 
 	std::shared_ptr<ServerCommand> command = std::make_shared<ServerCommand>(
-		number_of_threads, number_of_nodes, node_traverse_time, root_key, 0, 0, include_node_reports, graph_str);
+		number_of_threads, number_of_nodes, node_traverse_time, root_key, 0, 0, include_node_reports, graph_str, false);
 
 	BFS::BFS_MT(command);
 
@@ -65,7 +65,7 @@ std::string dfs_mt(
 
 	std::shared_ptr<ServerCommand> command = std::make_shared<ServerCommand>(
 		number_of_threads, number_of_nodes, node_traverse_time, root_key, polling_param, sufficiency_param, 
-		include_node_reports, graph_str);
+		include_node_reports, graph_str, false);
 
 	DFS::DFS_MT(command);
 

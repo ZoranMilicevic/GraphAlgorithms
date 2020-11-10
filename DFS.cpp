@@ -67,7 +67,12 @@ void DFS::DFS_MT(const std::shared_ptr<ServerCommand>& command)
 	
 }
 
-void DFS::DFS_MT_traversal(shared_ptr<DataStackSingleThread<GraphNode>> stack, shared_ptr<VisitedArrayCppThreads> visited, const shared_ptr<ServerCommand>& command, const shared_ptr<DFS_MT_Util>& util_struct)
+void DFS::DFS_MT_traversal(
+	shared_ptr<DataStackSingleThread<GraphNode>> stack, 
+	shared_ptr<VisitedArrayCppThreads> visited, 
+	const shared_ptr<ServerCommand>& command, 
+	const shared_ptr<DFS_MT_Util>& util_struct
+)
 {
 	unsigned nodes_visited_since_last_split = 0;
 	shared_ptr<mutex> ssr_mutex = make_shared<mutex>();

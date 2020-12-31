@@ -19,30 +19,36 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="BFS.h" />
+    <ClInclude Include="BFS_MT_Command.h" />
+    <ClInclude Include="BFS_ST_Command.h" />
     <ClInclude Include="DataNode.h" />
-    <ClInclude Include="DataQueueSingleThread.h" />
-    <ClInclude Include="DataStackSingleThread.h" />
-    <ClInclude Include="DFS.h" />
-    <ClInclude Include="DFS_MT_Util.h" />
-    <ClInclude Include="GraphNode.h" />
-    <ClInclude Include="MST.h" />
-    <ClInclude Include="NodeResultReport.h" />
+    <ClInclude Include="DataQueue.h" />
+    <ClInclude Include="DataStack.h" />
+    <ClInclude Include="DFS_MT_Command.h" />
+    <ClInclude Include="DFS_ST_Command.h" />
+    <ClInclude Include="Graph.h" />
+    <ClInclude Include="MST_Component.h" />
+    <ClInclude Include="MST_MT_Command.h" />
+    <ClInclude Include="MST_ST_Command.h" />
     <ClInclude Include="ResultReport.h" />
     <ClInclude Include="Semaphore.h" />
     <ClInclude Include="ServerCommand.h" />
     <ClInclude Include="ThreadPool.h" />
-    <ClInclude Include="DataQueueCppThreads.h" />
-    <ClInclude Include="DataStackCppThreads.h" />
-    <ClInclude Include="VisitedArraySingleThread.h" />
-    <ClInclude Include="VisitedArrayCppThreads.h" />
+    <ClInclude Include="DataQueueThreadsafe.h" />
+    <ClInclude Include="DataStackThreadsafe.h" />
+    <ClInclude Include="VisitedArray.h" />
+    <ClInclude Include="VisitedArrayThreadsafe.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="BFS.cpp" />
-    <ClCompile Include="DFS.cpp" />
-    <ClCompile Include="GraphNode.cpp" />
-    <ClCompile Include="MST.cpp" />
-    <ClCompile Include="ServerCommand.cpp" />
+    <ClCompile Include="BFS_MT_Command.cpp" />
+    <ClCompile Include="BFS_ST_Command.cpp" />
+    <ClCompile Include="DFS_MT_Command.cpp" />
+    <ClCompile Include="DFS_ST_Command.cpp" />
+    <ClCompile Include="Graph.cpp" />
+    <ClCompile Include="MST_Component.cpp" />
+    <ClCompile Include="MST_MT_Command.cpp" />
+    <ClCompile Include="MST_ST_Command.cpp" />
+    <ClCompile Include="ResultReport.cpp" />
     <ClCompile Include="Server.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

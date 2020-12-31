@@ -4,73 +4,91 @@
 #include "rpc/this_server.h"
 #include "rpc/this_session.h"
 #include "ServerCommand.h"
-#include "BFS.h"
-#include "DFS.h"
+#include "BFS_ST_Command.h"
+#include "BFS_MT_Command.h"
+#include "DFS_ST_Command.h"
+#include "DFS_MT_Command.h"
+#include "MST_ST_Command.h"
+#include "MST_MT_Command.h"
 
-std::string bfs_st(bool directed_graph, unsigned number_of_nodes, unsigned node_traverse_time, unsigned root_key, 
-	bool include_node_reports, const std::string& graph_str
-)
+#define DEFAULT_PORT 9000
+
+std::string bfs_st(const std::string& graph_str, unsigned root_key, unsigned node_traverse_time, bool include_node_reports)
 {
+	BFS_ST_Command command(graph_str, root_key, node_traverse_time, include_node_reports);
+
 	std::cout << "bfs_st called" << std::endl;
-
-	std::shared_ptr<ServerCommand> command = std::make_shared<ServerCommand>(
-		directed_graph, 1, number_of_nodes, node_traverse_time, root_key, 0, 0, include_node_reports, graph_str);
-
-	BFS::BFS_ST(command);
-
+	command.do_command();
 	std::cout << "bfs_st done" << std::endl;
 
-	return command->result_report.to_string();
+	return command.get_result_string();
 }
 
-std::string dfs_st(bool directed_graph, unsigned number_of_nodes, unsigned node_traverse_time, unsigned root_key,
-	bool include_node_reports, const std::string& graph_str
-)
+std::string dfs_st(const std::string& graph_str, unsigned root_key, unsigned node_traverse_time, bool include_node_reports)
 {
+	DFS_ST_Command command(graph_str, root_key, node_traverse_time, include_node_reports);
+
 	std::cout << "dfs_st called" << std::endl;
-
-	std::shared_ptr<ServerCommand> command = std::make_shared<ServerCommand>(
-		directed_graph, 1, number_of_nodes, node_traverse_time, root_key, 0, 0, include_node_reports, graph_str);
-
-	DFS::DFS_ST(command);
-
+	command.do_command();
 	std::cout << "dfs_st done" << std::endl;
 
-	return command->result_report.to_string();
+	return command.get_result_string();
 }
 
-std::string bfs_mt(bool directed_graph, unsigned number_of_nodes, unsigned node_traverse_time, unsigned root_key,
-	bool include_node_reports, const std::string& graph_str, unsigned number_of_threads
-)
+std::string bfs_mt(const std::string& graph_str, unsigned root_key, unsigned node_traverse_time, bool include_node_reports,
+	unsigned number_of_threads)
 {
+	if (number_of_threads == 0 || number_of_threads > std::thread::hardware_concurrency())
+		number_of_threads = std::thread::hardware_concurrency();
+
+	BFS_MT_Command command(graph_str, root_key, node_traverse_time, include_node_reports, number_of_threads);
+
 	std::cout << "bfs_mt called" << std::endl;
-
-	std::shared_ptr<ServerCommand> command = std::make_shared<ServerCommand>(
-		directed_graph, number_of_threads, number_of_nodes, node_traverse_time, root_key, 0, 0, include_node_reports, graph_str);
-
-	BFS::BFS_MT(command);
-
+	command.do_command();
 	std::cout << "bfs_mt done" << std::endl;
 
-	return command->result_report.to_string();
+	return command.get_result_string();
 }
 
-std::string dfs_mt(bool directed_graph, unsigned number_of_nodes, unsigned node_traverse_time, unsigned root_key,
-	bool include_node_reports, const std::string& graph_str, unsigned number_of_threads, 
-	unsigned polling_param, unsigned sufficiency_param
-)
+std::string dfs_mt(const std::string& graph_str, unsigned root_key, unsigned node_traverse_time, bool include_node_reports,
+	unsigned number_of_threads, unsigned polling_param, unsigned sufficiency_param)
 {
-	std::cout << "dfs_mt called" << std::endl;
+	if (number_of_threads == 0 || number_of_threads > std::thread::hardware_concurrency())
+		number_of_threads = std::thread::hardware_concurrency();
 
-	std::shared_ptr<ServerCommand> command = std::make_shared<ServerCommand>(
-		directed_graph, number_of_threads, number_of_nodes, node_traverse_time, root_key, polling_param, sufficiency_param, 
-		include_node_reports, graph_str);
+	DFS_MT_Command command(graph_str, root_key, node_traverse_time, include_node_reports, number_of_threads, polling_param, sufficiency_param);
 
-	DFS::DFS_MT(command);
+	std::cout << "bfs_mt called" << std::endl;
+	command.do_command();
+	std::cout << "bfs_mt done" << std::endl;
 
-	std::cout << "dfs_mt done" << std::endl;
+	return command.get_result_string();
+}
 
-	return command->result_report.to_string();
+std::string mst_st(const std::string& graph_str, unsigned root_key, unsigned node_traverse_time, bool include_node_reports)
+{
+	MST_ST_Command command(graph_str, root_key, node_traverse_time, include_node_reports);
+
+	std::cout << "mst_st called" << std::endl;
+	command.do_command();
+	std::cout << "mst_st done" << std::endl;
+
+	return command.get_result_string();
+}
+
+std::string mst_mt(const std::string& graph_str, unsigned root_key, unsigned node_traverse_time, bool include_node_reports,
+	unsigned number_of_threads)
+{
+	if (number_of_threads == 0 || number_of_threads > std::thread::hardware_concurrency())
+		number_of_threads = std::thread::hardware_concurrency();
+
+	MST_MT_Command command(graph_str, root_key, node_traverse_time, include_node_reports, number_of_threads);
+
+	std::cout << "mst_mt called" << std::endl;
+	command.do_command();
+	std::cout << "mst_mt done" << std::endl;
+
+	return command.get_result_string();
 }
 
 void close_session() 
@@ -85,12 +103,9 @@ void stop_server()
 
 int main(int argc, char* argv[])
 {
-	static int port = 9000;
-	if (argc > 1) 
-	{
-		if (strcmp(argv[1], "-port") && argc > 2)
-				port = atoi(argv[2]);
-	}
+	static int port = DEFAULT_PORT;
+	if (argc > 2 && strcmp(argv[1], "-port"))
+		port = atoi(argv[2]);
 
 	rpc::server srv(port);
 
@@ -98,6 +113,8 @@ int main(int argc, char* argv[])
 	srv.bind("dfs_st", dfs_st);
 	srv.bind("bfs_mt", bfs_mt);
 	srv.bind("dfs_mt", dfs_mt);
+	srv.bind("mst_st", mst_st);
+	srv.bind("mst_mt", mst_mt);
 	srv.bind("close_session", close_session);
 	srv.bind("stop_server", stop_server);
 

@@ -1,13 +1,14 @@
 #pragma once
 
+#include <memory>
 #include "DataNode.h"
 
 template <class T>
-class DataQueueSingleThread
+class DataStack
 {
 public:
-	DataQueueSingleThread() :head(nullptr), tail(nullptr), _size(0) {};
-	virtual ~DataQueueSingleThread() {
+	DataStack() :head(nullptr), _size(0) {}
+	virtual ~DataStack() {
 		//must be like this, because if not, too many nodes
 		//will cause to many destructors called recursivly 
 		//which will result in stack overflow
@@ -21,20 +22,11 @@ public:
 	{
 		std::unique_ptr<DataNode<T>> new_node(new DataNode<T>());
 		new_node->data = std::make_shared<T>(std::move(new_elem));
-
-		if (tail == nullptr) 
-		{
-			tail = new_node.get();
-			head = std::move(new_node);
-		}
-		else 
-		{
-			DataNode<T>* new_tail = new_node.get();
-			tail->next = std::move(new_node);
-			tail = new_tail;
-		}
 		_size++;
-	};
+
+		new_node->next = std::move(head);
+		head = std::move(new_node);
+	}
 
 	virtual std::shared_ptr<T> pop()
 	{
@@ -45,23 +37,26 @@ public:
 		head = std::move(old_head->next);
 		_size--;
 
-		if (head == nullptr) tail = nullptr;
-
 		return old_head->data;
-	};
-
+	}
+	
 	virtual bool empty() const
 	{
 		return head == nullptr;
-	};
+	}
 
-	virtual int size() const 
+	virtual unsigned size() const
 	{
 		return _size;
 	}
 
+	void split(std::shared_ptr<DataStack> to_fill, int transfer)
+	{
+		for (int i = 0; i < transfer; i++)
+			to_fill->push(*pop());
+	}
+
 protected:
 	std::unique_ptr<DataNode<T>> head;
-	DataNode<T> *tail;
 	unsigned _size;
 };

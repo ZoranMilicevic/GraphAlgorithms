@@ -2,14 +2,14 @@
 
 #include <memory>
 
-class VisitedArraySingleThread
+class VisitedArray
 {
 public:
-	VisitedArraySingleThread(int number_of_nodes) 
+	VisitedArray(size_t number_of_nodes) 
 		:number_of_nodes(number_of_nodes), 
 		visited(new bool[number_of_nodes]()),
 		number_of_visited(0) {}
-	virtual ~VisitedArraySingleThread() {}
+	virtual ~VisitedArray() {}
 
 	virtual bool test_and_set_visited(int node_id)
 	{
@@ -30,7 +30,7 @@ public:
 	}
 
 protected:
-	const int number_of_nodes;
+	const size_t number_of_nodes;
 	std::shared_ptr<bool[]> visited;
-	int number_of_visited;
+	size_t number_of_visited;
 };

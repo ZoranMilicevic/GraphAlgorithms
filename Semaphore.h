@@ -36,7 +36,7 @@ private:
 class FastSemaphore
 {
 public:
-  FastSemaphore(int count) noexcept
+  FastSemaphore(int count = 0) noexcept
     : m_count(count), m_semaphore(0) {}
 
   void post()

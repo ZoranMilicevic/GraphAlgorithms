@@ -8,12 +8,12 @@
 //using a dummy node
 
 template<class T>
-class DataQueueCppThreads
+class DataQueueThreadsafe
 {
 public:
-	DataQueueCppThreads() : head(new DataNode<T>()), tail(head.get()), head_mutex(), tail_mutex(), cond_var(), _size(0) {};
-	DataQueueCppThreads& operator=(const DataQueueCppThreads&) = delete;
-	virtual ~DataQueueCppThreads()
+	DataQueueThreadsafe() : head(new DataNode<T>()), tail(head.get()), head_mutex(), tail_mutex(), cond_var(), _size(0) {};
+	DataQueueThreadsafe& operator=(const DataQueueThreadsafe&) = delete;
+	virtual ~DataQueueThreadsafe()
 	{
 		//must be like this, because if not, too many nodes
 		//will cause to many destructors called recursivly 

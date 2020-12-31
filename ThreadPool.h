@@ -4,12 +4,12 @@
 #include <vector>
 #include <thread>
 #include <functional>
-#include "DataQueueCppThreads.h"
+#include "DataQueueThreadsafe.h"
 
 class ThreadPool
 {
     std::atomic_bool done;
-    DataQueueCppThreads<std::function<void()>> work_queue;
+    DataQueueThreadsafe<std::function<void()>> work_queue;
     std::vector<std::thread> threads;
 
     void worker_thread()
@@ -30,10 +30,6 @@ public:
         {
           for (unsigned i = 0; i < thread_count; ++i) 
             threads.push_back(std::thread(&ThreadPool::worker_thread, this));
-
-          for (auto&& thr : threads)
-            thr.detach();
-
         }
         catch (...)
         {
@@ -49,6 +45,9 @@ public:
         {
           work_queue.push([]()->void { int o=0; o++; });
         }
+
+        for (auto&& thr : threads)
+          thr.join();
     }
 
     template<typename FunctionType>

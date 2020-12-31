@@ -6,12 +6,12 @@
 #include "DataNode.h"
 
 template <class T>
-class DataStackCppThreads
+class DataStackThreadsafe
 {
 public:
-	DataStackCppThreads():head(nullptr), _size(0){}
-	DataStackCppThreads& operator=(const DataStackCppThreads&) = delete;
-	virtual ~DataStackCppThreads(){
+	DataStackThreadsafe():head(nullptr), _size(0){}
+	DataStackThreadsafe& operator=(const DataStackThreadsafe&) = delete;
+	virtual ~DataStackThreadsafe(){
 		//must be like this, because if not, too many nodes
 		//will cause to many destructors called recursivly 
 		//which will result in stack overflow
@@ -74,7 +74,7 @@ public:
 		return _size;
 	}
 
-	void split(std::shared_ptr<DataStackCppThreads> to_fill, int transfer)
+	void split(std::shared_ptr<DataStackThreadsafe> to_fill, int transfer)
 	{
 		for (int i = 0; i < transfer; i++)
 			to_fill->push(*pop());

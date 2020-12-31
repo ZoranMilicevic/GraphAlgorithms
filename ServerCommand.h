@@ -7,45 +7,27 @@
 #include <thread>
 #include "Semaphore.h"
 #include "ResultReport.h"
-#include "GraphNode.h"
-
-enum class GraphAlgorithm;
+#include "Graph.h"
 
 class ServerCommand
 {
 public:
-	ServerCommand(
-		bool directed_graph, unsigned number_of_threads, unsigned number_of_nodes, unsigned node_traverse_time, unsigned root_key,
-		unsigned polling_param, unsigned sufficiency_param, bool include_node_reports, const std::string& graph_str
-	) : directed_graph(directed_graph), number_of_nodes(number_of_nodes), node_traverse_time(node_traverse_time), root_key(root_key),
-		polling_param(polling_param), sufficiency_param(sufficiency_param),
-		include_node_reports(include_node_reports), sem(0) 
-	{
-		if (number_of_threads == 0 || number_of_threads > std::thread::hardware_concurrency())
-			this->number_of_threads = std::thread::hardware_concurrency();
-		if (include_node_reports)
-			result_report.node_results.resize(number_of_nodes);
-		create_graph_from_string(graph_str);
-	};
-	~ServerCommand(){}
+	ServerCommand(const std::string& graph_str, unsigned root_key, unsigned node_traverse_time, bool include_node_reports)
+		: graph(graph_str, root_key), node_traverse_time(node_traverse_time), include_node_reports(include_node_reports) {};
 
-	void create_graph_from_string(const std::string& graph_str);
+	virtual void do_command() = 0;
+	virtual std::string get_result_string() 
+	{
+		return result_report.to_string();
+	}
 
 	//config stuff
-	bool directed_graph;
-	unsigned number_of_threads;
-	unsigned number_of_nodes;
 	unsigned node_traverse_time;
-	unsigned root_key;
-	unsigned polling_param;
-	unsigned sufficiency_param;
 	bool include_node_reports;
 
-	//graph root
-	std::shared_ptr<GraphNode> graph_root;
+	//graph info
+	Graph graph;
 
 	//command result
 	ResultReport result_report;
-	
-	FastSemaphore sem;
 };

@@ -4,10 +4,10 @@
 #include <shared_mutex>
 #include <memory>
 
-class VisitedArrayCppThreads
+class VisitedArrayThreadsafe
 {
 public:
-	VisitedArrayCppThreads(int number_of_nodes)
+	VisitedArrayThreadsafe(size_t number_of_nodes)
 		:visited(new std::atomic_flag[number_of_nodes]()),
 		added(new std::atomic_flag[number_of_nodes]()),
 		number_of_nodes(number_of_nodes),
@@ -22,7 +22,7 @@ public:
 		end_time_written.clear();
 	}
 
-	virtual ~VisitedArrayCppThreads() {}
+	virtual ~VisitedArrayThreadsafe() {}
 
 	virtual bool test_and_set_visited(int node_id)
 	{
@@ -62,7 +62,7 @@ public:
 protected:
 	std::shared_ptr<std::atomic_flag[]> visited;
 	std::shared_ptr<std::atomic_flag[]> added;
-	const int number_of_nodes;
+	const size_t number_of_nodes;
 	std::atomic_int number_of_visited;
 	std::atomic_int number_of_added;
 	std::atomic_flag end_time_written;

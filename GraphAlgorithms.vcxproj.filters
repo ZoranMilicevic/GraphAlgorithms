@@ -1,9 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="GraphAlgorithms">
-      <UniqueIdentifier>{1142b7fe-6cf9-4a84-bdf6-cd80f6eea068}</UniqueIdentifier>
-    </Filter>
     <Filter Include="DataStructures">
       <UniqueIdentifier>{a8d531a5-0cdc-4738-89f0-e1d2aed9c530}</UniqueIdentifier>
     </Filter>
@@ -19,23 +16,23 @@
     <Filter Include="DataStructures\VisistedArray">
       <UniqueIdentifier>{db08d650-0d59-4b33-86a3-6eac3eb8a971}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Server">
-      <UniqueIdentifier>{7eb86345-91b5-4469-93eb-76236ca44b83}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="GraphAlgorithms\DFS">
-      <UniqueIdentifier>{b2cfc597-9249-489e-9c6d-de3a69c028ef}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="GraphAlgorithms\BFS">
-      <UniqueIdentifier>{5e3cb1e1-7796-4163-9bdb-0b2edae4107e}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Results">
       <UniqueIdentifier>{ab9ef65a-4153-4765-ad33-048e50e80bea}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Graph">
-      <UniqueIdentifier>{a3a15a59-9f68-429b-aafa-c99da898925b}</UniqueIdentifier>
+    <Filter Include="GraphAlgorithmCommands">
+      <UniqueIdentifier>{1142b7fe-6cf9-4a84-bdf6-cd80f6eea068}</UniqueIdentifier>
     </Filter>
-    <Filter Include="GraphAlgorithms\MST">
+    <Filter Include="GraphAlgorithmCommands\DFS">
+      <UniqueIdentifier>{b2cfc597-9249-489e-9c6d-de3a69c028ef}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GraphAlgorithmCommands\BFS">
+      <UniqueIdentifier>{5e3cb1e1-7796-4163-9bdb-0b2edae4107e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GraphAlgorithmCommands\MST">
       <UniqueIdentifier>{69b78a97-1f68-4b2e-909e-f3f81cb40e9d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="DataStructures\Graph">
+      <UniqueIdentifier>{a3a15a59-9f68-429b-aafa-c99da898925b}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -45,70 +42,86 @@
     <ClInclude Include="DataNode.h">
       <Filter>DataStructures</Filter>
     </ClInclude>
-    <ClInclude Include="VisitedArrayCppThreads.h">
-      <Filter>DataStructures\VisistedArray</Filter>
-    </ClInclude>
-    <ClInclude Include="DataStackSingleThread.h">
-      <Filter>DataStructures\DataStacks</Filter>
-    </ClInclude>
-    <ClInclude Include="DataQueueSingleThread.h">
-      <Filter>DataStructures\DataQueues</Filter>
-    </ClInclude>
-    <ClInclude Include="DataQueueCppThreads.h">
-      <Filter>DataStructures\DataQueues</Filter>
-    </ClInclude>
-    <ClInclude Include="DataStackCppThreads.h">
-      <Filter>DataStructures\DataStacks</Filter>
-    </ClInclude>
-    <ClInclude Include="VisitedArraySingleThread.h">
-      <Filter>DataStructures\VisistedArray</Filter>
-    </ClInclude>
-    <ClInclude Include="GraphNode.h">
-      <Filter>Graph</Filter>
-    </ClInclude>
-    <ClInclude Include="NodeResultReport.h">
-      <Filter>Results</Filter>
-    </ClInclude>
     <ClInclude Include="ResultReport.h">
       <Filter>Results</Filter>
-    </ClInclude>
-    <ClInclude Include="DFS.h">
-      <Filter>GraphAlgorithms\DFS</Filter>
-    </ClInclude>
-    <ClInclude Include="BFS.h">
-      <Filter>GraphAlgorithms\BFS</Filter>
-    </ClInclude>
-    <ClInclude Include="DFS_MT_Util.h">
-      <Filter>GraphAlgorithms\DFS</Filter>
     </ClInclude>
     <ClInclude Include="Semaphore.h">
       <Filter>DataStructures</Filter>
     </ClInclude>
-    <ClInclude Include="ServerCommand.h">
-      <Filter>Server</Filter>
+    <ClInclude Include="Graph.h">
+      <Filter>DataStructures\Graph</Filter>
     </ClInclude>
-    <ClInclude Include="MST.h">
-      <Filter>GraphAlgorithms\MST</Filter>
+    <ClInclude Include="ServerCommand.h">
+      <Filter>GraphAlgorithmCommands</Filter>
+    </ClInclude>
+    <ClInclude Include="BFS_ST_Command.h">
+      <Filter>GraphAlgorithmCommands\BFS</Filter>
+    </ClInclude>
+    <ClInclude Include="BFS_MT_Command.h">
+      <Filter>GraphAlgorithmCommands\BFS</Filter>
+    </ClInclude>
+    <ClInclude Include="DFS_MT_Command.h">
+      <Filter>GraphAlgorithmCommands\DFS</Filter>
+    </ClInclude>
+    <ClInclude Include="MST_ST_Command.h">
+      <Filter>GraphAlgorithmCommands\MST</Filter>
+    </ClInclude>
+    <ClInclude Include="DFS_ST_Command.h">
+      <Filter>GraphAlgorithmCommands\DFS</Filter>
+    </ClInclude>
+    <ClInclude Include="DataQueue.h">
+      <Filter>DataStructures\DataQueues</Filter>
+    </ClInclude>
+    <ClInclude Include="DataQueueThreadsafe.h">
+      <Filter>DataStructures\DataQueues</Filter>
+    </ClInclude>
+    <ClInclude Include="DataStackThreadsafe.h">
+      <Filter>DataStructures\DataStacks</Filter>
+    </ClInclude>
+    <ClInclude Include="DataStack.h">
+      <Filter>DataStructures\DataStacks</Filter>
+    </ClInclude>
+    <ClInclude Include="VisitedArrayThreadsafe.h">
+      <Filter>DataStructures\VisistedArray</Filter>
+    </ClInclude>
+    <ClInclude Include="VisitedArray.h">
+      <Filter>DataStructures\VisistedArray</Filter>
+    </ClInclude>
+    <ClInclude Include="MST_MT_Command.h">
+      <Filter>GraphAlgorithmCommands\MST</Filter>
+    </ClInclude>
+    <ClInclude Include="MST_Component.h">
+      <Filter>GraphAlgorithmCommands\MST</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="GraphNode.cpp">
-      <Filter>Graph</Filter>
+    <ClCompile Include="Graph.cpp">
+      <Filter>DataStructures\Graph</Filter>
     </ClCompile>
-    <ClCompile Include="DFS.cpp">
-      <Filter>GraphAlgorithms\DFS</Filter>
+    <ClCompile Include="BFS_ST_Command.cpp">
+      <Filter>GraphAlgorithmCommands\BFS</Filter>
     </ClCompile>
-    <ClCompile Include="BFS.cpp">
-      <Filter>GraphAlgorithms\BFS</Filter>
+    <ClCompile Include="BFS_MT_Command.cpp">
+      <Filter>GraphAlgorithmCommands\BFS</Filter>
     </ClCompile>
-    <ClCompile Include="Server.cpp">
-      <Filter>Server</Filter>
+    <ClCompile Include="DFS_MT_Command.cpp">
+      <Filter>GraphAlgorithmCommands\DFS</Filter>
     </ClCompile>
-    <ClCompile Include="ServerCommand.cpp">
-      <Filter>Server</Filter>
+    <ClCompile Include="MST_ST_Command.cpp">
+      <Filter>GraphAlgorithmCommands\MST</Filter>
     </ClCompile>
-    <ClCompile Include="MST.cpp">
-      <Filter>GraphAlgorithms\MST</Filter>
+    <ClCompile Include="DFS_ST_Command.cpp">
+      <Filter>GraphAlgorithmCommands\DFS</Filter>
+    </ClCompile>
+    <ClCompile Include="Server.cpp" />
+    <ClCompile Include="MST_MT_Command.cpp">
+      <Filter>GraphAlgorithmCommands\MST</Filter>
+    </ClCompile>
+    <ClCompile Include="ResultReport.cpp">
+      <Filter>Results</Filter>
+    </ClCompile>
+    <ClCompile Include="MST_Component.cpp">
+      <Filter>GraphAlgorithmCommands\MST</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

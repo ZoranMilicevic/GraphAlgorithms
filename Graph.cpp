@@ -1,19 +1,13 @@
 #include <thread>
 #include <chrono>
+#include <sstream>
 #include "Graph.h"
-#include "ServerCommand.h"
 
-void GraphNode::traverseNode(ServerCommand& command)
+void GraphNode::traverseNode(unsigned traverse_time)
 {
-	if (command.include_node_reports) 
+	if (traverse_time > 0)
 	{
-		std::shared_ptr<NodeResultReport> node_res_rep(new NodeResultReport(key, std::this_thread::get_id(), std::chrono::system_clock::now()));
-		command.result_report.add_node_result_report(node_res_rep);
-	}
-
-	if (command.node_traverse_time > 0) 
-	{
-		std::chrono::microseconds node_traverse_time{ command.node_traverse_time };
+		std::chrono::microseconds node_traverse_time{ traverse_time };
 		std::this_thread::sleep_for(node_traverse_time);
 	}
 }

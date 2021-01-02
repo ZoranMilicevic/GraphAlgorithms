@@ -1,7 +1,6 @@
 #pragma once
 
 #include <atomic>
-#include <shared_mutex>
 #include <memory>
 
 class VisitedArrayThreadsafe

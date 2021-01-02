@@ -4,18 +4,6 @@
     <Filter Include="DataStructures">
       <UniqueIdentifier>{a8d531a5-0cdc-4738-89f0-e1d2aed9c530}</UniqueIdentifier>
     </Filter>
-    <Filter Include="DataStructures\DataQueues">
-      <UniqueIdentifier>{159854bc-810d-4f14-a26c-83c4127c4fd5}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="DataStructures\DataStacks">
-      <UniqueIdentifier>{a03bda88-0fb5-4497-80d0-5862660b06c1}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="DataStructures\ThreadPool">
-      <UniqueIdentifier>{31701830-2de7-4f90-9a91-604b3bcb2ab4}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="DataStructures\VisistedArray">
-      <UniqueIdentifier>{db08d650-0d59-4b33-86a3-6eac3eb8a971}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Results">
       <UniqueIdentifier>{ab9ef65a-4153-4765-ad33-048e50e80bea}</UniqueIdentifier>
     </Filter>
@@ -31,25 +19,13 @@
     <Filter Include="GraphAlgorithmCommands\MST">
       <UniqueIdentifier>{69b78a97-1f68-4b2e-909e-f3f81cb40e9d}</UniqueIdentifier>
     </Filter>
-    <Filter Include="DataStructures\Graph">
-      <UniqueIdentifier>{a3a15a59-9f68-429b-aafa-c99da898925b}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="ThreadPool.h">
-      <Filter>DataStructures\ThreadPool</Filter>
-    </ClInclude>
-    <ClInclude Include="DataNode.h">
-      <Filter>DataStructures</Filter>
-    </ClInclude>
     <ClInclude Include="ResultReport.h">
       <Filter>Results</Filter>
     </ClInclude>
     <ClInclude Include="Semaphore.h">
       <Filter>DataStructures</Filter>
-    </ClInclude>
-    <ClInclude Include="Graph.h">
-      <Filter>DataStructures\Graph</Filter>
     </ClInclude>
     <ClInclude Include="ServerCommand.h">
       <Filter>GraphAlgorithmCommands</Filter>
@@ -69,35 +45,29 @@
     <ClInclude Include="DFS_ST_Command.h">
       <Filter>GraphAlgorithmCommands\DFS</Filter>
     </ClInclude>
-    <ClInclude Include="DataQueue.h">
-      <Filter>DataStructures\DataQueues</Filter>
-    </ClInclude>
-    <ClInclude Include="DataQueueThreadsafe.h">
-      <Filter>DataStructures\DataQueues</Filter>
-    </ClInclude>
-    <ClInclude Include="DataStackThreadsafe.h">
-      <Filter>DataStructures\DataStacks</Filter>
-    </ClInclude>
-    <ClInclude Include="DataStack.h">
-      <Filter>DataStructures\DataStacks</Filter>
-    </ClInclude>
-    <ClInclude Include="VisitedArrayThreadsafe.h">
-      <Filter>DataStructures\VisistedArray</Filter>
-    </ClInclude>
-    <ClInclude Include="VisitedArray.h">
-      <Filter>DataStructures\VisistedArray</Filter>
-    </ClInclude>
     <ClInclude Include="MST_MT_Command.h">
       <Filter>GraphAlgorithmCommands\MST</Filter>
     </ClInclude>
-    <ClInclude Include="MST_Component.h">
+    <ClInclude Include="MST_Tree.h">
       <Filter>GraphAlgorithmCommands\MST</Filter>
+    </ClInclude>
+    <ClInclude Include="ThreadPool.h">
+      <Filter>DataStructures</Filter>
+    </ClInclude>
+    <ClInclude Include="Graph.h">
+      <Filter>DataStructures</Filter>
+    </ClInclude>
+    <ClInclude Include="VisitedArray.h">
+      <Filter>DataStructures</Filter>
+    </ClInclude>
+    <ClInclude Include="VisitedArrayThreadsafe.h">
+      <Filter>DataStructures</Filter>
+    </ClInclude>
+    <ClInclude Include="DequeThreadsafe.h">
+      <Filter>DataStructures</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Graph.cpp">
-      <Filter>DataStructures\Graph</Filter>
-    </ClCompile>
     <ClCompile Include="BFS_ST_Command.cpp">
       <Filter>GraphAlgorithmCommands\BFS</Filter>
     </ClCompile>
@@ -120,8 +90,11 @@
     <ClCompile Include="ResultReport.cpp">
       <Filter>Results</Filter>
     </ClCompile>
-    <ClCompile Include="MST_Component.cpp">
+    <ClCompile Include="MST_Tree.cpp">
       <Filter>GraphAlgorithmCommands\MST</Filter>
+    </ClCompile>
+    <ClCompile Include="Graph.cpp">
+      <Filter>DataStructures</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

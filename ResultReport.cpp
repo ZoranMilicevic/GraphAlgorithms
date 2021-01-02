@@ -22,9 +22,9 @@ std::string ResultReport::to_string() const
 
 	for (auto&& node_result : node_results)
 	{
-		res_string << "Node: " << node_result->node_key << std::endl;
-		res_string << "Visitor thread ID: " << node_result->visitor_id << std::endl;
-		res_string << "Time visited: " << time_to_string(node_result->time_visited) << std::endl;
+		res_string << "Node: " << node_result.node_key << std::endl;
+		res_string << "Visitor thread ID: " << node_result.visitor_id << std::endl;
+		res_string << "Time visited: " << time_to_string(node_result.time_visited) << std::endl;
 	}
 
 	return res_string.str();

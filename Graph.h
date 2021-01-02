@@ -1,10 +1,21 @@
 #pragma once
+
 #include <vector>
 #include <memory>
 #include <string>
 
-class ServerCommand;
-class GraphNode;
+class GraphEdge;
+
+class GraphNode
+{
+public:
+	GraphNode(int key) : key(key) {}
+
+	void traverseNode(unsigned traverse_time);
+
+	int key;
+	std::vector<std::shared_ptr<GraphEdge>> outgoingEdges;
+};
 
 class GraphEdge
 {
@@ -15,17 +26,6 @@ public:
 	std::shared_ptr<GraphNode> node1;
 	std::shared_ptr<GraphNode> node2;
 	int weight;
-};
-
-class GraphNode
-{
-public:
-	GraphNode(int key) : key(key) {}
-
-	void traverseNode(ServerCommand& command);
-
-	int key;
-	std::vector<std::shared_ptr<GraphEdge>> outgoingEdges;
 };
 
 class Graph

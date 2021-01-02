@@ -4,12 +4,12 @@
 #include <vector>
 #include <thread>
 #include <functional>
-#include "DataQueueThreadsafe.h"
+#include "DequeThreadsafe.h"
 
 class ThreadPool
 {
     std::atomic_bool done;
-    DataQueueThreadsafe<std::function<void()>> work_queue;
+    deque_threadsafe<std::function<void()>> work_queue;
     std::vector<std::thread> threads;
 
     void worker_thread()
@@ -18,7 +18,7 @@ class ThreadPool
         {
             auto task = work_queue.pop();
             if (!done && task)
-                (*task)();
+                task();
         }
     }
 

@@ -1,13 +1,13 @@
 #pragma once
 
-#include <memory>
+#include <vector>
 
 class VisitedArray
 {
 public:
 	VisitedArray(size_t number_of_nodes) 
 		:number_of_nodes(number_of_nodes), 
-		visited(new bool[number_of_nodes]()),
+		visited(number_of_nodes),
 		number_of_visited(0) {}
 	virtual ~VisitedArray() {}
 
@@ -31,6 +31,6 @@ public:
 
 protected:
 	const size_t number_of_nodes;
-	std::shared_ptr<bool[]> visited;
+	std::vector<bool> visited;
 	size_t number_of_visited;
 };

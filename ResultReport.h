@@ -26,15 +26,15 @@ class ResultReport
 public:
 	ResultReport() {}
 
-	void add_node_result_report(const std::shared_ptr<NodeResultReport>& new_report)
+	void add_node_result_report(const NodeResultReport& new_report)
 	{
 		//do not use mutex because each thread is writing to diffrent location in vector
-		node_results[new_report->node_key] = new_report;
+		node_results[new_report.node_key] = new_report;
 	}
 	
 	std::string to_string() const;
 	
 	std::chrono::system_clock::time_point start_time;
 	std::chrono::system_clock::time_point end_time;
-	std::vector<std::shared_ptr<NodeResultReport>> node_results;
+	std::vector<NodeResultReport> node_results;
 };

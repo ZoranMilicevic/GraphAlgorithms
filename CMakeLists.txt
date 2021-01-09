@@ -1,8 +1,21 @@
 cmake_minimum_required(VERSION 2.4)
+set(CMAKE_CXX_STANDARD 17)
 
 project(GraphAlgorithms)
 
-target_include_directories(GraphAlgorithms PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/inc)
+target_include_directories(GraphAlgorithms 
+	PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/inc
+	PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/libs/rpclib/include
+)
+
+if (WIN32)
+	target_link_libraries(GraphAlgorithms ${CMAKE_CURRENT_SOURCE_DIR}/libs/rpclib/Windows_x64_Release/rpc.lib)
+endif (WIN32)
+
+if (UNIX)
+	target_link_libraries(GraphAlgorithms ${CMAKE_CURRENT_SOURCE_DIR}/libs/rpclib/Linunx_x64_Release/rpc.a)
+endif (UNIX)
+
 
 set(HEADERS
 	inc/BFS_MT_Command.h

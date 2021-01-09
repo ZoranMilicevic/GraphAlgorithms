@@ -7,8 +7,8 @@ class VisitedArrayThreadsafe
 {
 public:
 	VisitedArrayThreadsafe(size_t number_of_nodes)
-		:visited(new std::atomic_flag[number_of_nodes]()),
-		added(new std::atomic_flag[number_of_nodes]()),
+		:visited(number_of_nodes),
+		added(number_of_nodes),
 		number_of_nodes(number_of_nodes),
 		number_of_visited(0),
 		number_of_added(0)
@@ -59,8 +59,8 @@ public:
 	}
 
 protected:
-	std::shared_ptr<std::atomic_flag[]> visited;
-	std::shared_ptr<std::atomic_flag[]> added;
+	std::vector<std::atomic_flag> visited;
+	std::vector<std::atomic_flag> added;
 	const size_t number_of_nodes;
 	std::atomic_int number_of_visited;
 	std::atomic_int number_of_added;

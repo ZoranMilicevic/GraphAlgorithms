@@ -3,20 +3,6 @@ set(CMAKE_CXX_STANDARD 17)
 
 project(GraphAlgorithms)
 
-target_include_directories(GraphAlgorithms 
-	PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/inc
-	PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/libs/rpclib/include
-)
-
-if (WIN32)
-	target_link_libraries(GraphAlgorithms ${CMAKE_CURRENT_SOURCE_DIR}/libs/rpclib/Windows_x64_Release/rpc.lib)
-endif (WIN32)
-
-if (UNIX)
-	target_link_libraries(GraphAlgorithms ${CMAKE_CURRENT_SOURCE_DIR}/libs/rpclib/Linunx_x64_Release/rpc.a)
-endif (UNIX)
-
-
 set(HEADERS
 	inc/BFS_MT_Command.h
 	inc/BFS_ST_Command.h
@@ -48,4 +34,23 @@ set(SOURCES
 	src/Server.cpp
 )
 
-add_executable(GraphAlgorithmsServer ${HEADERS} ${SOURCES})
+add_executable(${PROJECT_NAME} ${HEADERS} ${SOURCES})
+
+target_include_directories(${PROJECT_NAME} 
+	PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/inc
+	PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/libs/rpclib/include
+)
+
+if (WIN32)
+	target_link_libraries(${PROJECT_NAME} 
+		debug ${CMAKE_CURRENT_SOURCE_DIR}/libs/rpclib/Windows/x64/Debug/rpc.lib
+		optimized ${CMAKE_CURRENT_SOURCE_DIR}/libs/rpclib/Windows/x64/Release/rpc.lib
+	)
+endif (WIN32)
+
+if (UNIX)
+	target_link_libraries(${PROJECT_NAME} 
+		debug ${CMAKE_CURRENT_SOURCE_DIR}/libs/rpclib/Linux/x64/Debug/rpc.a
+		optimized ${CMAKE_CURRENT_SOURCE_DIR}/libs/rpclib/Linux/x64/Release/rpc.a
+	)
+endif (UNIX)
